@@ -37,3 +37,6 @@ install_manifest.txt
 
 #my personal name for cmake build directories
 build
+
+#ycm configuration files that I use
+.ycm*
