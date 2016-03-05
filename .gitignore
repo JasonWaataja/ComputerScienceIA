@@ -40,3 +40,6 @@ build
 
 #ycm configuration files that I use
 .ycm*
+
+#vim swap files
+*~
