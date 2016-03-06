@@ -2,6 +2,7 @@
 #define BASHTUTORIAL_H
 
 #include <vector>
+#include <string>
 
 #include "tutorial.h"
 
@@ -13,12 +14,14 @@ class BashTutorial
 		//list of all tutorials that are available
 		vector<Tutorial*> availableTutorials;
 
-		//scans all of the tutorial files in tutorialDirectory and loads them into availableTutorials
-		void loadTutorialsFromDirectory(const char *tutorialDirectory);
 	public:
 		BashTutorial();
-		BashTutorial(const char *tutorialDirectory);
+		BashTutorial(const string& tutorialDirectory);
 		~BashTutorial();
+
+
+		//scans all of the tutorial files in tutorialDirectory and loads them into availableTutorials
+		bool loadTutorialsFromDirectory(const string& tutorialDirectory);
 
 		//method to have the user select a tutorial from a the current list
 		Tutorial* selectTutorialMenu();

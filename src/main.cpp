@@ -19,13 +19,23 @@ int main(int argc, char **argv)
 {
 	cout << "Hello BashTutorial" << endl;
 
-	TutorialAction action("e echo hello > testfile.txt");
+	/*TutorialAction action("e echo hello > testfile.txt");
 	char* currentDir = (char*) malloc(100);
 	cout << getcwd(currentDir, 100) << endl;
 	action.execute();
 	cout << getcwd(currentDir, 100) << endl;
-	free(currentDir);
-	
+	free(currentDir);*/
+
+
+
+	/*Tutorial tut;
+	cout << tut.loadFromFile("tutorial.tut") << endl;
+	cout << tut.execute() << endl;*/
+
+	BashTutorial tut("/home/jason/git/ComputerScienceIA/build");
+	cout << tut.getAvailableTutorials().size() << endl;
+	tut.startBashTutorial();
+
 
 
 	/*BashTutorial bashTutorial;

@@ -53,11 +53,20 @@ bool TutorialAction::loadFromString(const string& line)
 			string messageToPrint = line.substr(startPos, line.length() - startPos);
 			//copy instead of reference hopefull, so preserved
 			action = [messageToPrint](){cout << messageToPrint << endl;return true;};
+		} else if (firstWord == "p") {
+			int startPos = line.find("p") + strlen("p ");
+			string messageToPrint = line.substr(startPos, line.length() - startPos);
+			action = [messageToPrint](){cout << messageToPrint << endl;return true;};
+		} else if (firstWord == "execute") {
+			int startPos = line.find("execute") + strlen("execute ");
+			string command = line.substr(startPos, line.length() - startPos);
+			action = [command](){system(command.c_str());return true;};
 		} else if (firstWord == "e") {
 			//command starts on index 2, the third char of the line
-			int startPos = 2;
+			//int startPos = 2;
+			int startPos = line.find("e") + strlen("e ");
 			string command = line.substr(startPos, line.length() - startPos);
-			system(command.c_str());
+			action = [command](){system(command.c_str());return true;};
 		} else {
 
 			int argc = tokenCount - 1;
