@@ -28,13 +28,15 @@ int main(int argc, char **argv)
 
 
 
-	/*Tutorial tut;
+	Tutorial tut;
 	cout << tut.loadFromFile("tutorial.tut") << endl;
-	cout << tut.execute() << endl;*/
+	cout << tut.execute() << endl;
 
-	BashTutorial tut("/home/jason/git/ComputerScienceIA/build");
+	/*BashTutorial tut("/home/jason/git/ComputerScienceIA/build");
 	cout << tut.getAvailableTutorials().size() << endl;
-	tut.startBashTutorial();
+	Tutorial* st = tut.selectTutorialMenu();
+	cout << "Finished selecting tutorial" << endl;
+	cout << st << endl;*/
 
 
 

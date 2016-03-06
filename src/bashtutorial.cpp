@@ -71,7 +71,9 @@ bool BashTutorial::loadTutorialsFromDirectory(const string& tutorialDirectory)
 					availableTutorials.push_back(tutorial);
 				} else {
 					//return false;
-					cout << "Error, couldn't load tutorial file " << path << endl;
+					//cout << "Error, couldn't load tutorial file " << path << endl;
+					//
+					//actually, I've decided that it will just ignore it and not throw any errors for now
 				}
 			}
 		}

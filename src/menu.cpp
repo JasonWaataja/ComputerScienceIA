@@ -44,7 +44,7 @@ MenuEntry* Menu::getUserSelection(SubMenu* submenu)
 				selection = 0;
 			}
 		} while (selection < 1 || selection > length);
-		MenuEntry* selectedEntry = submenu->getEntry(selection);
+		MenuEntry* selectedEntry = submenu->getEntry(selection-1);
 		return selectedEntry;
 	} else {
 		cerr << "Error, trying to print a menu with no entries" << endl;
