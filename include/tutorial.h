@@ -7,6 +7,9 @@
 
 using namespace std;
 
+//This function is case senstive
+bool fileHasExtension(const string& path, const string& extension);
+
 class Tutorial: public MenuEntry
 {
 	private:
@@ -17,6 +20,9 @@ class Tutorial: public MenuEntry
 		//basic constructor + destructor
 		Tutorial();
 		~Tutorial();
+
+		bool loadFromFile(const string& path);
+		bool loadFromFolder(const string& path);
 
 		string getCommandName() const;
 		void setCommandName(const string &commandName);
