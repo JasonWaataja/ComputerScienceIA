@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 {
 	cout << "Hello BashTutorial" << endl;
 
-	TutorialAction action("print hello world");
+	TutorialAction action("e echo hello > testfile.txt");
 	char* currentDir = (char*) malloc(100);
 	cout << getcwd(currentDir, 100) << endl;
 	action.execute();

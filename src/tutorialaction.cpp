@@ -5,6 +5,7 @@
 #include <string.h>
 #include <functional>
 #include <vector>
+#include <cstdlib>
 #include "btfunctions.h"
 
 using namespace std;
@@ -52,6 +53,11 @@ bool TutorialAction::loadFromString(const string& line)
 			string messageToPrint = line.substr(startPos, line.length() - startPos);
 			//copy instead of reference hopefull, so preserved
 			action = [messageToPrint](){cout << messageToPrint << endl;return true;};
+		} else if (firstWord == "e") {
+			//command starts on index 2, the third char of the line
+			int startPos = 2;
+			string command = line.substr(startPos, line.length() - startPos);
+			system(command.c_str());
 		} else {
 
 			int argc = tokenCount - 1;
