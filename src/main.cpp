@@ -27,7 +27,6 @@ int main(int argc, char **argv)
 	free(currentDir);*/
 
 
-
 	Tutorial tut;
 	cout << tut.loadFromFile("tutorial.tut") << endl;
 	cout << tut.execute() << endl;
