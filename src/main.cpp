@@ -1,7 +1,7 @@
 #include <iostream>
 #include <functional>
 #include <cstdlib>
-#include <unistd.h>
+//#include <unistd.h>
 #include <readline/readline.h>
 
 
@@ -27,15 +27,15 @@ int main(int argc, char **argv)
 	free(currentDir);*/
 
 
-	Tutorial tut;
-	cout << tut.loadFromFile("tutorial.tut") << endl;
-	cout << tut.execute() << endl;
+	//Tutorial tut;
+	//cout << tut.loadFromFile("tutorial.tut") << endl;
+	//cout << tut.execute() << endl;
 
-	/*BashTutorial tut("/home/jason/git/ComputerScienceIA/build");
-	cout << tut.getAvailableTutorials().size() << endl;
+	BashTutorial tut("/home/jason/git/ComputerScienceIA/build");
+	cout << "Constructed bash tutorial" << endl;
 	Tutorial* st = tut.selectTutorialMenu();
 	cout << "Finished selecting tutorial" << endl;
-	cout << st << endl;*/
+	cout << st << endl;
 
 
 

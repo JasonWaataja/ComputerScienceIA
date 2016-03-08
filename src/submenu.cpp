@@ -2,6 +2,9 @@
 
 #include <vector>
 #include <cstdarg>
+#include <iostream>
+
+using namespace std;
 
 using namespace std;
 
@@ -49,6 +52,7 @@ int SubMenu::size() const
 
 void SubMenu::addEntry(MenuEntry* entry)
 {
+	cout << "Adding Entry" << endl;
 	this->items.push_back(entry);
 }
 

@@ -1,17 +1,22 @@
 #include "btfunctions.h"
 
-#include <unistd.h>
 #include <iostream>
+#include <boost/filesystem.hpp>
 
 using namespace std;
+using namespace boost::filesystem;
 
 bool btcd(const string& newDirectory)
 {
-	int status = chdir(newDirectory.c_str());
-	if (status == 0) {
+	//int status = chdir(newDirectory.c_str());
+	path p(newDirectory);
+	if (is_directory(p)) {
+		return false;
+	}
+	try {
+		boost::filesystem::current_path(newDirectory);
 		return true;
-	} else {
-		cerr << "Error, couldn't chage directory to " << newDirectory << endl;
+	} catch (...) {
 		return false;
 	}
 }

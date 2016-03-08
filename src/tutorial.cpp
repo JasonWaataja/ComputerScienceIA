@@ -29,9 +29,11 @@ Tutorial::Tutorial() : MenuEntry("Tutorial", "a tutorial")
 
 Tutorial::~Tutorial()
 {
+	cout << "Running tutorial destructor" << endl;
 	for (int i = 0; i < actionList.size(); i++) {
 		delete actionList[i];
 	}
+	cout << "About to finish running destructor in tutorial" << endl;
 }
 
 bool Tutorial::loadFromFile(const string& path)
