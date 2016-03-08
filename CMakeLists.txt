@@ -9,6 +9,12 @@ file(GLOB SOURCES "src/*.cpp")
 add_executable(runbashtutorial ${SOURCES})
 set_property(TARGET runbashtutorial PROPERTY CXX_STANDARD 11)
 
+
+find_package(Boost REQUIRED COMPONENTS filesystem system)
+include_directories(${Boost_INCLUDE_DIRS})
+#link_libraries(${Boost_LIBRARY_DIRS})
+target_link_libraries(runbashtutorial ${Boost_LIBRARIES})
+
 find_package(Readline REQUIRED)
 include_directories(${Readline_INCLUDE_DIR})
 target_link_libraries(runbashtutorial ${Readline_LIBRARY})
