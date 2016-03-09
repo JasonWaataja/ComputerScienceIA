@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 #include <cstdlib>
+#include <iostream>
 
 using namespace boost::filesystem;
 using namespace std;
@@ -55,6 +56,19 @@ string BashCommandLine::getBashInput()
 
 string BashCommandLine::getBashInputExpected(const string& expected, const string& incorrectMessage, const string& hintMessage)
 {
+	string userInput;
+	userInput = this->getBashInput();
+	int tries = 0;
+	while (userInput != expected)
+	{
+		cout << incorrectMessage << endl;
+		tries++;
+		if (tries == MISTAKE_COUNT_HINT) {
+			cout << hintMessage << endl;
+		}
+		userInput = this->getBashInput();
+	}
+	return userInput;
 }
 
 string BashCommandLine::getUsername() const
