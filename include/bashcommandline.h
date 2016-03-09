@@ -1,0 +1,4 @@
+#ifndef BASHCOMMANDLINE_H
+#define BASHCOMMANDLINE_H
+
+#endif
