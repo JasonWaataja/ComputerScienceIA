@@ -15,10 +15,10 @@
 using namespace std;
 using namespace boost::filesystem;
 
-SubMenu* getTutorialsInDirectory(const string& tutorialDirectory)
+SubMenu* getTutorialsInDirectory(const string& tutorialDirectory, SubMenu* parentMenu)
 {
 	path dir(tutorialDirectory);
-	SubMenu* menu = new SubMenu("Menu", dir.filename().string());
+	SubMenu* menu = new SubMenu("Menu", dir.filename().string(), parentMenu);
 	if (is_directory(dir)) {
 		directory_iterator i(dir);
 		directory_iterator end;
@@ -33,7 +33,7 @@ SubMenu* getTutorialsInDirectory(const string& tutorialDirectory)
 					delete tut;
 				}
 			} else {
-				SubMenu* submenu = getTutorialsInDirectory(p.string());
+				SubMenu* submenu = getTutorialsInDirectory(p.string(), menu);
 				menu->addEntry(submenu);
 			}
 		} 
@@ -44,12 +44,9 @@ SubMenu* getTutorialsInDirectory(const string& tutorialDirectory)
 void deleteTutorialsInMenu(SubMenu* menu)
 {
 	for (int i = 0; i < menu->size(); i++) {
-		cout << i << endl;
 		MenuEntry* entry;
 		entry = menu->getEntry(i);
-		cout << entry << endl;
 		if (entry->isMenuEntry()) {
-			cout << "is menu entry" << endl;
 			SubMenu* asSubMenu = dynamic_cast<SubMenu*>(entry);
 			if (asSubMenu) {
 				deleteTutorialsInMenu(asSubMenu);
@@ -91,7 +88,8 @@ Tutorial* BashTutorial::selectTutorialMenu()
 	//return selectedTutorial;
 	MenuEntry* userSeletion = menu->getUserSelection();
 	Tutorial* asTutorial = dynamic_cast<Tutorial*>(userSeletion);
-	assert(asTutorial != nullptr);
+	//could be null
+	//assert(asTutorial != nullptr);
 	return asTutorial;
 }
 
@@ -102,41 +100,27 @@ Tutorial* BashTutorial::selectTutorialMenu()
 
 bool BashTutorial::loadTutorialsFromDirectory(const string& tutorialDirectory)
 {
-	cout << "Loading Tutorial From Directory" << endl;
 	if (menu != nullptr) {
-		cout << "Deleting tutorials in menu" << endl;
 		deleteTutorialsInMenu(menu);
 	}
 	delete menu;
-	cout << "Deleted Menu" << endl;
 	path dir(tutorialDirectory);
 	menu = new Menu("Bash Tutorial");
 	if (is_directory(dir)) {
-		cout << "Is Directory" << endl;
 		directory_iterator i(dir);
 		directory_iterator end;
 		for (; i != end; i++) {
 			path p = i->path();
-			cout << p << endl;
 			if (is_regular_file(p)) {
 				Tutorial* tut = new Tutorial();
-				cout << "About to load tutorial file" << endl;
 				bool success = tut->loadFromFile(p.string());
-				cout << "Loaded tutorial file" << endl;
-				cout << success << endl;
 				if (success) {
-					cout << "About to add entry" << endl;
 					menu->addEntry(tut);
-					cout << "Added entry" << endl;
 				} else {
-					cout << "About to delete tut" << endl;
 					delete tut;
-					cout << "Deleted tut" << endl;
 				}
 			} else {
-				cout << "About to create submenu" << endl;
-				SubMenu* submenu = getTutorialsInDirectory(p.string());
-				cout << "Created submenu" << endl;
+				SubMenu* submenu = getTutorialsInDirectory(p.string(), menu);
 				menu->addEntry(submenu);
 			}
 		} 

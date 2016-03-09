@@ -18,6 +18,13 @@ void Menu::printMenuSelection(SubMenu* submenu)
 		MenuEntry* currentEntry = submenu->getEntry(i);
 		cout << "\t" << i+1 << ": " << currentEntry->getEntryLine() << endl;
 	}
+	SubMenu* parent = submenu->getParentMenu();
+	//if it's null, present quit option, otherwise allow parent
+	if (parent != nullptr) {
+		cout << "\t" << submenu->size()+1 << ": " << "Parent directory - " << parent->getName() << endl;
+	} else {
+		cout << "\t" << submenu->size()+1 << ": Quit" << endl;
+	}
 }
 
 MenuEntry* Menu::getUserSelection(SubMenu* submenu)
@@ -25,31 +32,51 @@ MenuEntry* Menu::getUserSelection(SubMenu* submenu)
 	printMenuSelection(submenu);
 
 	int length = submenu->size();
-	if (length > 0)
-	{
-		int selection = 0;
-		do {
-			//note, this assumes there's at least 1 entry, will produce a weird result of no-entries
-			//also, accepts answer on the same line
-			cout << "Please enter a selection 1-" << length << ": ";
-			string userInput;
-			cin >> userInput;
-			try {
-				selection = std::stoi(userInput);
-				if (selection < 1 || selection > length) {
-					cout << "You have to enter a number from 1 to " << length << ". Try again" << endl;
-				}
-			} catch (...) {
-				cout << "There was an error with your input, make user you enter an integer." << endl;
-				selection = 0;
+	/*if (length > 0)
+	  {*/
+	int selection = 0;
+	do {
+		//note, this assumes there's at least 1 entry, will produce a weird result of no-entries
+		//also, accepts answer on the same line
+		cout << "Please enter a selection 1-" << length+1 << ": ";
+		string userInput;
+		cin >> userInput;
+		try {
+			//string to int = stoi
+			selection = std::stoi(userInput);
+			if (selection < 1 || selection > length+1) {
+				cout << "You have to enter a number from 1 to " << length+1 << ". Try again" << endl;
 			}
-		} while (selection < 1 || selection > length);
-		MenuEntry* selectedEntry = submenu->getEntry(selection-1);
-		return selectedEntry;
-	} else {
-		cerr << "Error, trying to print a menu with no entries" << endl;
-		return NULL;
+		} catch (...) {
+			cout << "There was an error with your input, make user you enter an integer." << endl;
+			selection = 0;
+		}
+	} while (selection < 1 || selection > length+1);
+	//if it's the last entry;
+	if (selection == length+1) {
+		SubMenu* parent = submenu->getParentMenu();
+		if (parent != nullptr) {
+			return getUserSelection(parent);
+		} else {
+			//the "quit" was used and we're returning null
+			return nullptr;
+		}
 	}
+	MenuEntry* selectedEntry = submenu->getEntry(selection-1);
+	if (selectedEntry->isMenuEntry()) {
+		SubMenu* asSubMenu = dynamic_cast<SubMenu*>(selectedEntry);
+		if (asSubMenu) {
+			return getUserSelection(asSubMenu);
+		} else {
+			//as of now, fails if it's anything other than a submenu object.
+			return nullptr;
+		}
+	}
+	return selectedEntry;
+	/*} else {
+	  cerr << "Error, trying to print a menu with no entries" << endl;
+	  return nullptr;
+	  }*/
 }
 
 MenuEntry* Menu::getUserSelection()

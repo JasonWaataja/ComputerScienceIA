@@ -11,13 +11,12 @@ class SubMenu: public MenuEntry
 {
 	private:
 		vector<MenuEntry*> items;
+		//parent menu, nullptr if no parent
+		SubMenu* parentMenu;
 
 	public:
-		SubMenu();
-		SubMenu(const string& name, const string& description, const vector<MenuEntry*>& items);
-		SubMenu(const string& name, const string& description);
-		SubMenu(const vector<MenuEntry*>& items);
-		SubMenu(const string& name, const string& description, int menuLength, ...);
+		SubMenu(SubMenu* parentMenu=nullptr);
+		SubMenu(const string& name, const string& description, SubMenu* parentMenu=nullptr);
 
 		//returns by reference, I hope it works
 		vector<MenuEntry*>& getItems();
@@ -30,7 +29,10 @@ class SubMenu: public MenuEntry
 
 		//overriden functions
 		bool isMenuEntry() const;
-		virtual string getEntryLine() const;
+		//virtual string getEntryLine() const;
+
+		//returns parentMenu, nullptr if none exists
+		SubMenu* getParentMenu();
 };
 
 #endif

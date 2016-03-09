@@ -8,36 +8,12 @@ using namespace std;
 
 using namespace std;
 
-SubMenu::SubMenu() : MenuEntry("Submenu", "a submenu")
+SubMenu::SubMenu(SubMenu* parentMenu) : SubMenu("Menu", "a submenu", parentMenu)
 {
 }
 
-SubMenu::SubMenu(const string& name, const string& description, const vector<MenuEntry*>& items) : MenuEntry(name, description), items(items)
+SubMenu::SubMenu(const string& name, const string& description, SubMenu* parentMenu) : MenuEntry(name, description), parentMenu(parentMenu)
 {
-}
-
-SubMenu::SubMenu(const string& name, const string& description) : MenuEntry(name, description)
-{
-}
-
-SubMenu::SubMenu(const vector<MenuEntry*>& menuEntries) : SubMenu("Submenu", "a submenu", menuEntries)
-{
-}
-
-SubMenu::SubMenu(const string& name, const string& description, int menuLength, ...) : SubMenu(name, description)
-{
-	va_list args;
-	va_start(args, menuLength);
-
-	for (int i = 0; i < menuLength; i++) {
-		MenuEntry* nextEntry = va_arg(args, MenuEntry*);
-		if (nextEntry != NULL)
-		{
-			items.push_back(nextEntry);
-		}
-	}
-
-	va_end(args);
 }
 
 vector<MenuEntry*>& SubMenu::getItems()
@@ -52,7 +28,6 @@ int SubMenu::size() const
 
 void SubMenu::addEntry(MenuEntry* entry)
 {
-	cout << "Adding Entry" << endl;
 	this->items.push_back(entry);
 }
 
@@ -76,9 +51,14 @@ bool SubMenu::isMenuEntry() const
 	return true;
 }
 
-string SubMenu::getEntryLine() const
+/*string SubMenu::getEntryLine() const
 {
 	string entryLine;
 	entryLine = "submenu " + MenuEntry::getEntryLine();
 	return entryLine;
+}*/
+
+SubMenu* SubMenu::getParentMenu()
+{
+	return this->parentMenu;
 }

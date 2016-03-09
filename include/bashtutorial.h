@@ -12,7 +12,7 @@ using namespace std;
 
 
 //allocates them with new delete with deleteTutorialsInMenu but also delete the menu itself afterwards
-SubMenu* getTutorialsInDirectory(const string& tutorialDirectory);
+SubMenu* getTutorialsInDirectory(const string& tutorialDirectory, SubMenu* parentMenu=nullptr);
 //deletes recursively, deletes everything, not just turials
 void deleteTutorialsInMenu(SubMenu* menu);
 

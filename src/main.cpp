@@ -32,10 +32,9 @@ int main(int argc, char **argv)
 	//cout << tut.execute() << endl;
 
 	BashTutorial tut("/home/jason/git/ComputerScienceIA/build");
-	cout << "Constructed bash tutorial" << endl;
 	Tutorial* st = tut.selectTutorialMenu();
-	cout << "Finished selecting tutorial" << endl;
-	cout << st << endl;
+	if (st)
+		st->execute();
 
 
 
