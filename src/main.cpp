@@ -35,11 +35,17 @@ int main(int argc, char **argv)
 	//Tutorial* st = tut.selectTutorialMenu();
 	//if (st)
 		//st->execute();
-	btcd("/home/jason");
-	system("pwd");
+	//btcd("/home/jason");
+	//system("pwd");
 
-	BashCommandLine b;
-	cout << b.getBashInput() << endl;
+	//BashCommandLine b;
+	//cout << b.getBashInput() << endl;
+
+	string tester = "\"a\"";
+	cout << tester.length() << endl;
+	string quote;
+	int pos = findQuoted(tester, quote);
+	cout << quote << endl;
 
 
 

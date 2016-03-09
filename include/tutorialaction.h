@@ -6,6 +6,12 @@
 
 using namespace std;
 
+//-1 if none found, stores it in "quote", else it returns the position after the second quote
+int findQuoted(const string& parameter, string& quote, int start = 0);
+
+//the parameter is the line after "ge " supposedly
+function<bool()> getGeFunction(const string& parameter);
+
 class TutorialAction
 {
 	public:

@@ -7,6 +7,7 @@
 #include <vector>
 #include <cstdlib>
 #include "btfunctions.h"
+#include "bashcommandline.h"
 
 using namespace std;
 
@@ -28,6 +29,51 @@ bool TutorialAction::execute()
 {
 	return action();
 }
+
+int findQuoted(const string& parameter, string& quote, int start)
+{
+	int q1 = parameter.find('"', start);
+	if (q1 == string::npos)
+		return -1;
+	start = q1+1;
+	int q2;
+	bool found = false;
+	while (!found) {
+		q2 = parameter.find('"', start);
+		if (q2 == string::npos)
+			return -1;
+		start = q2+1;
+		//if not escaped
+		if (parameter[q2-1] != '\\')
+			found = true;
+	}
+	int length = q2 - q1 - 1;
+	quote = parameter.substr(q1+1, length);
+	cout << parameter << endl;
+	cout << quote << endl;
+	cout << q1 << " " << q2 << endl;
+	return q2 + 1;
+}
+
+function<bool()> getGeFunction(const string& parameter)
+{
+	function<bool()> action = [](){BashCommandLine b; b.getBashInput();return true;};
+	string expectedInput;
+	int pos1 = findQuoted(parameter, expectedInput);
+	if (pos1 == -1)
+		return action;
+	string hint;
+	int pos2 = findQuoted(parameter, hint, pos1);
+	if (pos2 == -1)
+		return action;
+	action = [expectedInput, hint](){
+		BashCommandLine b;
+		b.getBashInputExpected(expectedInput, hint);
+		return true;
+	};
+	return action;
+}
+
 
 bool TutorialAction::loadFromString(const string& line)
 {
@@ -67,6 +113,14 @@ bool TutorialAction::loadFromString(const string& line)
 			int startPos = line.find("e") + strlen("e ");
 			string command = line.substr(startPos, line.length() - startPos);
 			action = [command](){system(command.c_str());return true;};
+			//"get"
+		} else if (firstWord == "g") {
+			action = [](){BashCommandLine line;line.getBashInput(); return true;};
+			//"get expected"
+		}else if (firstWord == "ge") {
+			int startPos = line.find("ge") + strlen("ge ");
+			string parameter = line.substr(startPos, line.length() - startPos);
+			action = getGeFunction(parameter);
 		} else {
 
 			int argc = tokenCount - 1;
