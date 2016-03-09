@@ -2,7 +2,6 @@
 #include <functional>
 #include <cstdlib>
 //#include <unistd.h>
-#include <readline/readline.h>
 
 
 
@@ -12,6 +11,7 @@
 #include "menu.h"
 #include "tutorialaction.h"
 #include "btfunctions.h"
+#include "bashcommandline.h"
 
 using namespace std;
 
