@@ -10,7 +10,7 @@ bool btcd(const string& newDirectory)
 {
 	//int status = chdir(newDirectory.c_str());
 	path p(newDirectory);
-	if (is_directory(p)) {
+	if (!is_directory(p)) {
 		return false;
 	}
 	try {

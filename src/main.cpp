@@ -31,10 +31,15 @@ int main(int argc, char **argv)
 	//cout << tut.loadFromFile("tutorial.tut") << endl;
 	//cout << tut.execute() << endl;
 
-	BashTutorial tut("/home/jason/git/ComputerScienceIA/build");
-	Tutorial* st = tut.selectTutorialMenu();
-	if (st)
-		st->execute();
+	//BashTutorial tut("/home/jason/git/ComputerScienceIA/build");
+	//Tutorial* st = tut.selectTutorialMenu();
+	//if (st)
+		//st->execute();
+	btcd("/home/jason");
+	system("pwd");
+
+	BashCommandLine b;
+	cout << b.getBashInput() << endl;
 
 
 
