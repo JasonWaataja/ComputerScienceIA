@@ -17,6 +17,10 @@ BashCommandLine::BashCommandLine() : username("user"), computerName("computer")
 	//more stuff here
 }
 
+BashCommandLine::BashCommandLine(const string& username, const string& computerName) : username(username), computerName(computerName)
+{
+}
+
 BashCommandLine::~BashCommandLine()
 {
 }

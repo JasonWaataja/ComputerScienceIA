@@ -15,6 +15,7 @@ class BashCommandLine
 
 	public:
 		BashCommandLine();
+		BashCommandLine(const string& username, const string& computerName);
 		~BashCommandLine();
 
 		string getPrompt();
