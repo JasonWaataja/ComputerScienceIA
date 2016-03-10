@@ -37,8 +37,8 @@ class BashTutorial
 		//note, this deletes the old menu and makes a new one
 		bool loadTutorialsFromDirectory(const string& tutorialDirectory);
 
-		//method to have the user select a tutorial from a the current list
-		Tutorial* selectTutorialMenu();
+		//method to have the user select a tutorial from a the current list, stores the parent menu in parentMenu;
+		Tutorial* selectTutorialMenu(SubMenu*& parentMenuToSet);
 		//method to call to run the whole tutorial start to finish
 		void startBashTutorial();
 

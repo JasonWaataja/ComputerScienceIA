@@ -33,9 +33,11 @@ int main(int argc, char **argv)
 	//cout << tut.execute() << endl;
 
 	BashTutorial tut("/home/jason/git/ComputerScienceIA/build");
-	Tutorial* st = tut.selectTutorialMenu();
+	SubMenu* parent;
+	Tutorial* st = tut.selectTutorialMenu(parent);
+	//cout << parent->getName() << endl;
 	if (st) {
-		tut.executeTutorialFromEntry(st, static_cast<SubMenu*>(tut.getMenu()->getEntry(1)));
+		tut.executeTutorialFromEntry(st, parent);
 		//st->execute();
 	}
 

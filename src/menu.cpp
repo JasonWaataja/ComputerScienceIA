@@ -27,9 +27,10 @@ void Menu::printMenuSelection(SubMenu* submenu)
 	}
 }
 
-MenuEntry* Menu::getUserSelection(SubMenu* submenu)
+MenuEntry* Menu::getUserSelection(SubMenu* submenu, SubMenu*& parentMenuToSet)
 {
 	printMenuSelection(submenu);
+	parentMenuToSet = submenu;
 
 	int length = submenu->size();
 	/*if (length > 0)
@@ -54,11 +55,13 @@ MenuEntry* Menu::getUserSelection(SubMenu* submenu)
 	} while (selection < 1 || selection > length+1);
 	//if it's the last entry;
 	if (selection == length+1) {
+		cout << "last entry in menu was selected" << endl;
 		SubMenu* parent = submenu->getParentMenu();
 		if (parent != nullptr) {
-			return getUserSelection(parent);
+			return getUserSelection(parent, parentMenuToSet);
 		} else {
 			//the "quit" was used and we're returning null
+			parentMenuToSet = nullptr;
 			return nullptr;
 		}
 	}
@@ -66,7 +69,7 @@ MenuEntry* Menu::getUserSelection(SubMenu* submenu)
 	if (selectedEntry->isMenuEntry()) {
 		SubMenu* asSubMenu = dynamic_cast<SubMenu*>(selectedEntry);
 		if (asSubMenu) {
-			return getUserSelection(asSubMenu);
+			return getUserSelection(asSubMenu, parentMenuToSet);
 		} else {
 			//as of now, fails if it's anything other than a submenu object.
 			return nullptr;
@@ -79,7 +82,9 @@ MenuEntry* Menu::getUserSelection(SubMenu* submenu)
 	  }*/
 }
 
-MenuEntry* Menu::getUserSelection()
+MenuEntry* Menu::getUserSelection(SubMenu*& parentMenuToSet)
 {
-	return getUserSelection(this);
+	//return getUserSelection(this, parentMenu);
+	MenuEntry* selection = getUserSelection(this, parentMenuToSet);
+	return selection;
 }

@@ -100,7 +100,7 @@ BashTutorial::~BashTutorial()
 	delete menu;
 }
 
-Tutorial* BashTutorial::selectTutorialMenu()
+Tutorial* BashTutorial::selectTutorialMenu(SubMenu*& parentMenuToSet)
 {
 	//Menu selectionMenu("Tutorial Selection Menu");
 	//for (int i = 0; i < availableTutorials.size(); i++) {
@@ -114,7 +114,7 @@ Tutorial* BashTutorial::selectTutorialMenu()
 	//Tutorial* selectedTutorial = dynamic_cast<Tutorial*>(userSelection);
 	//assert(selectedTutorial != nullptr);
 	//return selectedTutorial;
-	MenuEntry* userSeletion = menu->getUserSelection();
+	MenuEntry* userSeletion = menu->getUserSelection(parentMenuToSet);
 	Tutorial* asTutorial = dynamic_cast<Tutorial*>(userSeletion);
 	//could be null
 	//assert(asTutorial != nullptr);
@@ -189,9 +189,12 @@ bool BashTutorial::loadTutorialsFromDirectory(const string& tutorialDirectory)
 
 void BashTutorial::startBashTutorial()
 {
-	Tutorial* selectedTutorial = selectTutorialMenu();
+	//note, this function is wrong because it uses parentMenu, which is the name of a member, change later
+	SubMenu* parentMenu;
+	Tutorial* selectedTutorial = selectTutorialMenu(parentMenu);
 	if (selectedTutorial != nullptr) {
-		selectedTutorial->execute();
+		//selectedTutorial->execute();
+		this->executeTutorialFromEntry(selectedTutorial, parentMenu);
 	}
 }
 
@@ -232,8 +235,7 @@ bool BashTutorial::executeTutorialFromEntry(MenuEntry* startEntry, SubMenu* pare
 			}
 		}
 	}
-	if (parent && !wentIntoDirectory) {
-		cout << parent->getDescription() << endl;
+	if ((parent != nullptr) && !wentIntoDirectory) {
 		vector<MenuEntry*> entries = parent->getItems();
 		auto i = std::find(entries.begin(), entries.end(), startEntry);
 		//find it in parent
