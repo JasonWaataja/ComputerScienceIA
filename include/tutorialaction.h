@@ -6,6 +6,9 @@
 
 using namespace std;
 
+//might change on OS, for now on linux, it just calls "system()"
+bool executeWithBash(const string& command);
+
 //gets whether or not the current character is escaped with "\"
 bool isEscaped(const string& s, int i);
 
@@ -14,6 +17,10 @@ int findQuoted(const string& parameter, string& quote, int start = 0);
 
 //the parameter is the line after "ge " supposedly
 function<bool()> getGeFunction(const string& parameter);
+
+//same as above, except executes the thing as well
+function<bool()> getGeeFunction(const string& parameter);
+
 
 class TutorialAction
 {

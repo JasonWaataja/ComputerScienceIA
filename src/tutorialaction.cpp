@@ -11,6 +11,12 @@
 
 using namespace std;
 
+bool executeWithBash(const string& command)
+{
+	system(command.c_str());
+	return true;
+}
+
 bool isEscaped(const string& s, int i)
 {
 	bool escaped = false;
@@ -27,6 +33,7 @@ bool isEscaped(const string& s, int i)
 			return false;
 		}
 	}
+	return false;
 }
 
 
@@ -112,6 +119,31 @@ function<bool()> getGeFunction(const string& parameter)
 }
 
 
+function<bool()> getGeeFunction(const string& parameter)
+{
+	function<bool()> action = [](){BashCommandLine b; b.getBashInput();return true;};
+	string expectedInput;
+	int pos1 = findQuoted(parameter, expectedInput);
+	if (pos1 == -1)
+		return action;
+	string errorMessage;
+	int pos2 = findQuoted(parameter, errorMessage, pos1);
+	if (pos2 == -1)
+		return action;
+	string hint;
+	int pos3 = findQuoted(parameter, hint, pos2);
+	if (pos3 == -1)
+		return action;
+	action = [expectedInput, errorMessage, hint](){
+		BashCommandLine b;
+		b.getBashInputExpected(expectedInput, errorMessage, hint);
+		executeWithBash(expectedInput);
+		return true;
+	};
+	return action;
+}
+
+
 bool TutorialAction::loadFromString(const string& line)
 {
 	action = blankFunction;
@@ -151,7 +183,7 @@ bool TutorialAction::loadFromString(const string& line)
 			//int startPos = 2;
 			int startPos = line.find("e") + strlen("e ");
 			string command = line.substr(startPos, line.length() - startPos);
-			action = [command](){system(command.c_str());return true;};
+			action = [command](){executeWithBash(command);return true;};
 			//"get"
 		} else if (firstWord == "g") {
 			action = [](){;BashCommandLine line;line.getBashInput(); return true;};
@@ -160,6 +192,10 @@ bool TutorialAction::loadFromString(const string& line)
 			int startPos = line.find("ge") + strlen("ge ");
 			string parameter = line.substr(startPos, line.length() - startPos);
 			action = getGeFunction(parameter);
+		} else if (firstWord == "gee") {
+			int startPos = line.find("gee") + strlen("gee ");
+			string parameter = line.substr(startPos, line.length() - startPos);
+			action = getGeeFunction(parameter);
 		} else {
 
 			int argc = tokenCount - 1;
