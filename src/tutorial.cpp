@@ -2,25 +2,15 @@
 
 #include <fstream>
 #include <iostream>
+#include <boost/filesystem.hpp>
 
 #include "tutorialaction.h"
 
 using namespace std;
 
-bool fileHasExtension(const string& path, const string& extension)
+bool fileHasExtension(const string& path, const string& e)
 {
-	size_t extensionPos = path.find_last_of(".") + 1;
-	//if there's not dot
-	if (extensionPos == string::npos) {
-		return false;
-	} else {
-		string fileExtension = path.substr(extensionPos, path.length() - extensionPos);
-		if (fileExtension == extension) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+	return boost::filesystem::extension(path) == e;
 }
 
 Tutorial::Tutorial() : MenuEntry("Tutorial", "a tutorial")
@@ -36,7 +26,7 @@ Tutorial::~Tutorial()
 
 bool Tutorial::loadFromFile(const string& path)
 {
-	if (fileHasExtension(path, "tut")) {
+	if (fileHasExtension(path, ".tut")) {
 
 		ifstream reader;
 		reader.open(path);
@@ -55,12 +45,15 @@ bool Tutorial::loadFromFile(const string& path)
 			}
 			while (getline(reader, line)) {
 				//uses default constructor so it can check for errors
-				TutorialAction* action = new TutorialAction(line);
+				//TutorialAction* action = new TutorialAction(line);
+				TutorialAction* action = new TutorialAction();
 				bool success = action->loadFromString(line);
 				if (!success) {
-					return false;
+					delete action;
+					//return false;
+				} else {
+					actionList.push_back(action);
 				}
-				actionList.push_back(action);
 			}
 		}
 		return true;
@@ -81,8 +74,10 @@ void Tutorial::setCommandName(const string& commandName)
 
 bool Tutorial::execute() {
 	for (int i = 0; i < actionList.size(); i++) {
+		//cout << i << endl;
 		bool success;
 		success = actionList[i]->execute();
+		//cout << success << endl;
 		if (!success)
 			return false;
 	}

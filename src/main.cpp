@@ -27,8 +27,9 @@ int main(int argc, char **argv)
 	free(currentDir);*/
 
 
-	//Tutorial tut;
-	//cout << tut.loadFromFile("tutorial.tut") << endl;
+	Tutorial tut;
+	tut.loadFromFile("tutorial.tut");
+	tut.execute();
 	//cout << tut.execute() << endl;
 
 	//BashTutorial tut("/home/jason/git/ComputerScienceIA/build");
@@ -41,11 +42,14 @@ int main(int argc, char **argv)
 	//BashCommandLine b;
 	//cout << b.getBashInput() << endl;
 
-	string tester = "\"a\"";
-	cout << tester.length() << endl;
-	string quote;
-	int pos = findQuoted(tester, quote);
-	cout << quote << endl;
+	//string tester = "\"\\\"a\n \"";
+	//cout << tester.length() << endl;
+	//string quote;
+	//int pos = findQuoted(tester, quote);
+	//cout << quote << endl;
+
+	//BashCommandLine b;
+	//b.getBashInputExpected("a", "wrong", "hint");
 
 
 

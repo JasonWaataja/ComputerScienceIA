@@ -43,7 +43,7 @@ string BashCommandLine::getPrompt()
 	if (inHome)
 		promptStream << "~";
 	else
-		promptStream << currentDir.string();
+		promptStream << currentDir.filename().string();
 
 	promptStream << "]$ ";
 	return promptStream.str();
@@ -67,7 +67,7 @@ string BashCommandLine::getBashInputExpected(const string& expected, const strin
 	{
 		cout << incorrectMessage << endl;
 		tries++;
-		if (tries == MISTAKE_COUNT_HINT) {
+		if (tries >= MISTAKE_COUNT_HINT) {
 			cout << hintMessage << endl;
 		}
 		userInput = this->getBashInput();

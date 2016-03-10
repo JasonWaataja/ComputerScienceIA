@@ -6,6 +6,9 @@
 
 using namespace std;
 
+//gets whether or not the current character is escaped with "\"
+bool isEscaped(const string& s, int i);
+
 //-1 if none found, stores it in "quote", else it returns the position after the second quote
 int findQuoted(const string& parameter, string& quote, int start = 0);
 

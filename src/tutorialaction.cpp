@@ -11,6 +11,25 @@
 
 using namespace std;
 
+bool isEscaped(const string& s, int i)
+{
+	bool escaped = false;
+	if (i >= 0 && i < s.length()) {
+		if (i > 0) {
+			char previous = s[i-1];
+			if (previous != '\\') {
+				return false;
+			} else {
+				isEscaped(s, i-1);
+				return !isEscaped(s, i-1);
+			}
+		} else {
+			return false;
+		}
+	}
+}
+
+
 TutorialAction::TutorialAction(const function<bool()>& action) : action(action)
 {
 }
@@ -44,14 +63,28 @@ int findQuoted(const string& parameter, string& quote, int start)
 			return -1;
 		start = q2+1;
 		//if not escaped
-		if (parameter[q2-1] != '\\')
+		//if (parameter[q2-1] != '\\')
+		if (!isEscaped(parameter, q2))
 			found = true;
 	}
 	int length = q2 - q1 - 1;
 	quote = parameter.substr(q1+1, length);
-	cout << parameter << endl;
-	cout << quote << endl;
-	cout << q1 << " " << q2 << endl;
+	//cout << parameter << endl;
+	//cout << quote << endl;
+	//change to escaped characters.
+	int i = 0;
+	while (i < quote.length()) {
+		if (isEscaped(quote, i)) {
+			char c = quote[i];
+			if (i == 'n')
+				quote[i] = '\n';
+			else if (c == 't')
+				quote[i] = '\t';
+			quote.erase(i-1, 1);
+		} else {
+			i++;
+		}
+	}
 	return q2 + 1;
 }
 
@@ -88,7 +121,9 @@ bool TutorialAction::loadFromString(const string& line)
 		tokens.push_back(currentToken);
 		currentToken = strtok(NULL, " ");
 	}
+	delete[] lineAsCString;
 	int tokenCount = tokens.size();
+	//cout << tokenCount << endl;
 	if (tokenCount > 0)
 	{
 		string firstWord = tokens[0];
@@ -115,7 +150,7 @@ bool TutorialAction::loadFromString(const string& line)
 			action = [command](){system(command.c_str());return true;};
 			//"get"
 		} else if (firstWord == "g") {
-			action = [](){BashCommandLine line;line.getBashInput(); return true;};
+			action = [](){;BashCommandLine line;line.getBashInput(); return true;};
 			//"get expected"
 		}else if (firstWord == "ge") {
 			int startPos = line.find("ge") + strlen("ge ");
@@ -139,8 +174,9 @@ bool TutorialAction::loadFromString(const string& line)
 			}
 			delete[] argv;
 		}
+	} else {
+		return false;
 	}
-	delete[] lineAsCString;
 	//always succeeds for now
 	return true;
 }
