@@ -95,13 +95,17 @@ function<bool()> getGeFunction(const string& parameter)
 	int pos1 = findQuoted(parameter, expectedInput);
 	if (pos1 == -1)
 		return action;
-	string hint;
-	int pos2 = findQuoted(parameter, hint, pos1);
+	string errorMessage;
+	int pos2 = findQuoted(parameter, errorMessage, pos1);
 	if (pos2 == -1)
 		return action;
-	action = [expectedInput, hint](){
+	string hint;
+	int pos3 = findQuoted(parameter, hint, pos2);
+	if (pos3 == -1)
+		return action;
+	action = [expectedInput, errorMessage, hint](){
 		BashCommandLine b;
-		b.getBashInputExpected(expectedInput, hint);
+		b.getBashInputExpected(expectedInput, errorMessage, hint);
 		return true;
 	};
 	return action;
