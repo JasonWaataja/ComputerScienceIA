@@ -7,6 +7,7 @@
 #include <cstdio>
 #include <cstring>
 #include <iostream>
+#include <algorithm>
 #include <boost/filesystem.hpp>
 
 #include "menu.h"
@@ -15,10 +16,36 @@
 using namespace std;
 using namespace boost::filesystem;
 
+bool getYesNo(const string& prompt)
+{
+	cout << prompt;
+	string line;
+	getline(cin, line);
+	if (line.length() > 0) {
+		char c = line[0];
+		if (c == 'Y' || c == 'y')
+			return true;
+		else if (c == 'N' || c == 'n')
+			return false;
+		else {
+			cout << "Enter yes or no." << endl;
+			return getYesNo();
+		}
+	} else {
+		return getYesNo();
+	}
+}
+
+bool getYesNo()
+{
+	string prompt;
+	return getYesNo(prompt);
+}
+
 SubMenu* getTutorialsInDirectory(const string& tutorialDirectory, SubMenu* parentMenu)
 {
 	path dir(tutorialDirectory);
-	SubMenu* menu = new SubMenu("Menu", dir.filename().string(), parentMenu);
+	SubMenu* menu = new SubMenu(dir.filename().string(), "sub directory", parentMenu);
 	if (is_directory(dir)) {
 		directory_iterator i(dir);
 		directory_iterator end;
@@ -35,6 +62,7 @@ SubMenu* getTutorialsInDirectory(const string& tutorialDirectory, SubMenu* paren
 			} else {
 				SubMenu* submenu = getTutorialsInDirectory(p.string(), menu);
 				menu->addEntry(submenu);
+				//submenu->setName(p.filename().string());
 			}
 		} 
 	}
@@ -100,10 +128,10 @@ Tutorial* BashTutorial::selectTutorialMenu()
 
 bool BashTutorial::loadTutorialsFromDirectory(const string& tutorialDirectory)
 {
-	if (menu != nullptr) {
-		deleteTutorialsInMenu(menu);
-	}
-	delete menu;
+	//if (menu != nullptr) {
+		//deleteTutorialsInMenu(menu);
+	//}
+	//delete menu;
 	path dir(tutorialDirectory);
 	menu = new Menu("Bash Tutorial");
 	if (is_directory(dir)) {
@@ -124,6 +152,9 @@ bool BashTutorial::loadTutorialsFromDirectory(const string& tutorialDirectory)
 				menu->addEntry(submenu);
 			}
 		} 
+		return true;
+	} else {
+		return false;
 	}
 
 	//DIR* rootDir = opendir(tutorialDirectory.c_str());
@@ -162,4 +193,75 @@ void BashTutorial::startBashTutorial()
 	if (selectedTutorial != nullptr) {
 		selectedTutorial->execute();
 	}
+}
+
+bool BashTutorial::executeTutorialFromEntry(MenuEntry* startEntry, SubMenu* parent)
+{
+	if (startEntry == nullptr) {
+		if (parent) {
+			if (parent->size() > 0) {
+				startEntry = parent->getEntry(0);
+			}
+		}
+	}
+	bool wentIntoDirectory = false;
+	if (startEntry != nullptr) {
+		if (startEntry->isItemEntry()) {
+			Tutorial* asTutorial = dynamic_cast<Tutorial*>(startEntry);
+			if (asTutorial) {
+				cout << "Would you like to start tutorial " << asTutorial->getName() << "? [y/n] ";
+				bool answer = getYesNo();
+				if (answer) {
+					asTutorial->execute();
+				}
+			}
+		} else {
+			SubMenu* asSubMenu = dynamic_cast<SubMenu*>(startEntry);
+			if (asSubMenu) {
+				cout << "Would you like to go through tutorials in " << asSubMenu->getName() << "? [y/n] ";
+				bool answer = getYesNo();
+				if (answer) {
+					if (asSubMenu->size() > 0) {
+						executeTutorialFromEntry(asSubMenu->getEntry(0), asSubMenu);
+					} else {
+						executeTutorialFromEntry(nullptr, asSubMenu);
+					}
+					wentIntoDirectory = true;
+				}
+
+			}
+		}
+	}
+	if (parent && !wentIntoDirectory) {
+		cout << parent->getDescription() << endl;
+		vector<MenuEntry*> entries = parent->getItems();
+		auto i = std::find(entries.begin(), entries.end(), startEntry);
+		//find it in parent
+		if (i != entries.end()) {
+			//get next entry
+			i++;
+			if (i != entries.end()) {
+				executeTutorialFromEntry(*i, parent);
+			} else {
+				cout << "No more entries in " << parent->getName() << endl;
+				if (parent->getParentMenu()) {
+					cout << "Would you like to go up to " << parent->getParentMenu()->getName() << "? [y/n] " << endl;
+					bool answer = getYesNo();
+					if (answer) {
+						executeTutorialFromEntry(parent, parent->getParentMenu());
+					}
+				} else {
+					cout << "No parent menu, ending." << endl;
+				}
+			}
+		}
+	} else {
+		cout << "No parent menu, ending." << endl;
+	}
+	return true;
+}
+
+Menu* BashTutorial::getMenu()
+{
+	return this->menu;
 }

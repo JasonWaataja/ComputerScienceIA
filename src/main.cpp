@@ -27,17 +27,17 @@ int main(int argc, char **argv)
 	free(currentDir);*/
 
 
-	Tutorial tut;
-	tut.loadFromFile("tutorial.tut");
-	tut.execute();
+	//Tutorial tut;
+	//tut.loadFromFile("tutorial.tut");
+	//tut.execute();
 	//cout << tut.execute() << endl;
 
-	//BashTutorial tut("/home/jason/git/ComputerScienceIA/build");
-	//Tutorial* st = tut.selectTutorialMenu();
-	//if (st)
+	BashTutorial tut("/home/jason/git/ComputerScienceIA/build");
+	Tutorial* st = tut.selectTutorialMenu();
+	if (st) {
+		tut.executeTutorialFromEntry(st, static_cast<SubMenu*>(tut.getMenu()->getEntry(1)));
 		//st->execute();
-	//btcd("/home/jason");
-	//system("pwd");
+	}
 
 	//BashCommandLine b;
 	//cout << b.getBashInput() << endl;

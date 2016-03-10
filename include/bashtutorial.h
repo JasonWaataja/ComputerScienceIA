@@ -10,6 +10,10 @@
 
 using namespace std;
 
+//true for yes, false for no
+//note, any input that begins with y or n is a yes or no
+bool getYesNo(const string& prompt);
+bool getYesNo();
 
 //allocates them with new delete with deleteTutorialsInMenu but also delete the menu itself afterwards
 SubMenu* getTutorialsInDirectory(const string& tutorialDirectory, SubMenu* parentMenu=nullptr);
@@ -37,6 +41,12 @@ class BashTutorial
 		Tutorial* selectTutorialMenu();
 		//method to call to run the whole tutorial start to finish
 		void startBashTutorial();
+
+		//uses parent directories and std::find to loop over all of the entries in the directory
+		//note, this fails if the same pointer is in the list twice.
+		bool executeTutorialFromEntry(MenuEntry* startEntry, SubMenu* parent);
+
+		Menu* getMenu();
 
 
 		//returns by reference
