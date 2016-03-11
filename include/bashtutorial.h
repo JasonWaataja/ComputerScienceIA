@@ -8,6 +8,9 @@
 #include "menu.h"
 #include "submenu.h"
 
+//where the tutorial files are located
+#define TUTORIAL_DIRECTORY "tutorials"
+
 using namespace std;
 
 //true for yes, false for no

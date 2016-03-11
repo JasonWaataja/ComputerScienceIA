@@ -87,10 +87,12 @@ void deleteTutorialsInMenu(SubMenu* menu)
 BashTutorial::BashTutorial()
 {
 	menu = new Menu("Bash Tutorial");
+	loadTutorialsFromDirectory(TUTORIAL_DIRECTORY);
 }
 
 BashTutorial::BashTutorial(const string& tutorialDirectory) : BashTutorial()
 {
+	menu = new Menu("Bash Tutorial");
 	this->loadTutorialsFromDirectory(tutorialDirectory);
 }
 
@@ -128,12 +130,14 @@ Tutorial* BashTutorial::selectTutorialMenu(SubMenu*& parentMenuToSet)
 
 bool BashTutorial::loadTutorialsFromDirectory(const string& tutorialDirectory)
 {
-	//if (menu != nullptr) {
-		//deleteTutorialsInMenu(menu);
-	//}
+	if (menu != nullptr) {
+		deleteTutorialsInMenu(menu);
+	}
 	//delete menu;
 	path dir(tutorialDirectory);
-	menu = new Menu("Bash Tutorial");
+	if (menu == nullptr) {
+		menu = new Menu("Bash Tutorial");
+	}
 	if (is_directory(dir)) {
 		directory_iterator i(dir);
 		directory_iterator end;
@@ -189,7 +193,6 @@ bool BashTutorial::loadTutorialsFromDirectory(const string& tutorialDirectory)
 
 void BashTutorial::startBashTutorial()
 {
-	//note, this function is wrong because it uses parentMenu, which is the name of a member, change later
 	SubMenu* parentMenu;
 	Tutorial* selectedTutorial = selectTutorialMenu(parentMenu);
 	if (selectedTutorial != nullptr) {
