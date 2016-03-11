@@ -196,6 +196,14 @@ bool TutorialAction::loadFromString(const string& line)
 			int startPos = line.find("gee") + strlen("gee ");
 			string parameter = line.substr(startPos, line.length() - startPos);
 			action = getGeeFunction(parameter);
+		//w = "wait"
+		} else if (firstWord == "w" || firstWord == "wait") {
+			action = [](){
+				cout << "Press ENTER to continue... ";
+				string line;
+				getline(cin, line);
+				return true;
+			};
 		} else {
 
 			int argc = tokenCount - 1;
