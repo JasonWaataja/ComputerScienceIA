@@ -1,0 +1,15 @@
+pwd
+tutorial for pwd command
+
+p Welcome to the first bash tutorial
+p In this tutorial, you'll learn how to use the "pwd" command.
+p In Linux, UNIX, and even Windows, there is a command called "pwd" which tells you what directory you're currently working from.
+p The way you access files and the files you're currently working with are based on your "current working directory", which is the directory bash was run from or that you've navigated into.
+p This is usually your home directory if you start a terminal, but can be anywhere once you navigate there.
+w
+p The command to tell the terminal to tell you your current working directory is to run the command "pwd"
+p Try running "pwd" with no other arguments and pressing "Enter"
+gee "pwd" "Looking for the command "pwd", try again" "Try tping \"pwd\", then pressing \"ENTE\R""
+p As you can see, the command printed out what directory you're currently in.
+p This command is useful if you need to get an idea of where you are in your computer.
+w
