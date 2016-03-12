@@ -97,37 +97,6 @@ int findQuoted(const string& parameter, string& quote, int start)
 
 function<bool()> getGeFunction(const string& parameter)
 {
-	function<bool()> action = [](){BashCommandLine b; b.getBashInput();return true;};
-	string expectedInput;
-	int pos1 = findQuoted(parameter, expectedInput);
-	if (pos1 == -1)
-		return action;
-	string errorMessage;
-	int pos2 = findQuoted(parameter, errorMessage, pos1);
-	if (pos2 == -1) {
-		action = [expectedInput]() {
-			BashCommandLine b;
-			b.getBashInputExpected(expectedInput);
-			return true;
-		};
-		return action;
-	}
-	string hint;
-	int pos3 = findQuoted(parameter, hint, pos2);
-	if (pos3 == -1) {
-		action = [expectedInput, errorMessage]() {
-			BashCommandLine b;
-			b.getBashInputExpected(expectedInput, errorMessage);
-			return true;
-		};
-		return action;
-	}
-	action = [expectedInput, errorMessage, hint](){
-		BashCommandLine b;
-		b.getBashInputExpected(expectedInput, errorMessage, hint);
-		return true;
-	};
-	return action;
 }
 
 
@@ -140,12 +109,26 @@ function<bool()> getGeeFunction(const string& parameter)
 		return action;
 	string errorMessage;
 	int pos2 = findQuoted(parameter, errorMessage, pos1);
-	if (pos2 == -1)
+	if (pos2 == -1) {
+		action = [expectedInput]() {
+			BashCommandLine b;
+			b.getBashInputExpected(expectedInput);
+			executeWithBash(expectedInput);
+			return true;
+		};
 		return action;
+	}
 	string hint;
 	int pos3 = findQuoted(parameter, hint, pos2);
-	if (pos3 == -1)
+	if (pos3 == -1) {
+		action = [expectedInput, errorMessage]() {
+			BashCommandLine b;
+			b.getBashInputExpected(expectedInput, errorMessage);
+			executeWithBash(expectedInput);
+			return true;
+		};
 		return action;
+	}
 	action = [expectedInput, errorMessage, hint](){
 		BashCommandLine b;
 		b.getBashInputExpected(expectedInput, errorMessage, hint);
@@ -186,6 +169,16 @@ bool TutorialAction::loadFromString(const string& line)
 			int startPos = line.find("p") + strlen("p ");
 			string messageToPrint = line.substr(startPos, line.length() - startPos);
 			action = [messageToPrint](){cout << messageToPrint << endl;return true;};
+		} else if (firstWord == "pw") {
+			int startPos = line.find("pw") + strlen("pw ");
+			string messageToPrint = line.substr(startPos, line.length() - startPos);
+			action = [messageToPrint](){
+				cout << messageToPrint;
+				string line;
+				getline(cin, line);
+				return true;
+
+			};
 		} else if (firstWord == "execute") {
 			int startPos = line.find("execute") + strlen("execute ");
 			string command = line.substr(startPos, line.length() - startPos);
