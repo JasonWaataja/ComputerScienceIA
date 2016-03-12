@@ -24,7 +24,8 @@ class BashCommandLine
 		//gets the user input with a bash-like command line
 		string getBashInput();
 		//errors until the user enters the correct input, gives a hint after MISTAKE_COUNT_HINT incorrect guessed
-		string getBashInputExpected(const string& expected, const string& incorrectMessage = "Incorrect", const string& hintMessage = "Looks lilke you need a hint.");
+		string getBashInputExpected(const string& expected, const string& incorrectMessage = "Incorrect, try again");
+		string getBashInputExpected(const string& expected, const string& incorrectMessage, const string& hintMessage);
 
 		string getUsername() const;
 		void setUsername(const string& username);

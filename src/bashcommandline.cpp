@@ -58,6 +58,18 @@ string BashCommandLine::getBashInput()
 	return input;
 }
 
+string BashCommandLine::getBashInputExpected(const string& expected, const string& incorrectMessage)
+{
+	string userInput;
+	userInput = this->getBashInput();
+	while (userInput != expected)
+	{
+		cout << incorrectMessage << endl;
+		userInput = this->getBashInput();
+	}
+	return userInput;
+}
+
 string BashCommandLine::getBashInputExpected(const string& expected, const string& incorrectMessage, const string& hintMessage)
 {
 	string userInput;
