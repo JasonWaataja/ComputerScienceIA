@@ -1,9 +1,20 @@
 ls
 tutorial for the ls command
 
-p Welcome to the first Tutorial
-w
-p The first command you will be learning is "ls"
-p This is one of the most important commands because it tells you information about the directory you're currently in
-w
-p First, enter pwd so you can find out what 
+pw One of the most important commands you'll need to know is ls
+pw This is one of the most important commands because it tells you information about the directory you're currently in
+p First, enter pwd so you can find out what directory you're currently in
+gee "pwd" "Run the \"pwd\" command"
+pw So we know what directory we're in, so now we want to know what's in it.
+pw To do this, we use the "ls" command.
+pw This is a command that tells what the contents of a directory is
+pw If you run the command by itself, it tells you what the contents of the current directory are.
+p Try running the "ls" command.
+gee "ls" "Enter the \"ls\" command."
+pw So this showed you what the contents of your current directory are
+pw You can also use this command to find out what the contents of another directory are.
+pw In Linux and Unix systems, the character "~" represents the user's home directory, which on Linux is usually /home/<your name>
+p Try entering the command "ls ~" which will tell you what the contents of your home directory are
+gee "ls ~" "Enter \"ls ~\""
+pw This shows the content of your home directory.
+pw This is usually things like Documents and Pictures folders

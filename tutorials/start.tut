@@ -3,3 +3,16 @@ Where to start for BashTutorial
 
 p Welcome to Bash Tutorial.
 w
+pw When you see a message, you can usually press "ENTER" to continue.
+pw Throughout these tutorials, you'll be learning how to use the bash command line.
+pw This doesn't just mean Linux, it also means you'll be able to operate Unix systems such as OSX from a command line.
+pw This also includes BSD variants which are Unix-like.
+pw This is partly because of something called the "POSIX" standard which, among other things, defines a certain type of command line interface.
+pw Note, however, that most of the stuff you will be learning does not apply to Microsoft Windows.
+pw Windows does have a command line, but it does not conform to this standard and has a very different set of commands which behave very differently.
+pw In a command line, the user manipulates the computer by executing various commands and running programs.
+p To start out, here's what command line interface is like. Type anything then press enter.
+g
+pw A command line consts of the a line with information, then a space to enter a command.
+pw Learning how to use a command line is mostly just learning the commands as well as syntax.
+pw To start learning these commands, go on to the next tutorial.

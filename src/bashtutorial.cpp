@@ -90,13 +90,11 @@ void deleteTutorialsInMenu(SubMenu* menu)
 
 bool orderWithFile(SubMenu* menu, const string& orderfile)
 {
-	cout << orderfile << endl;
 	if (menu != nullptr) {
 		path p(orderfile);
 		if (exists(p)) {
 			std::ifstream reader(p.string());
 			if (reader.is_open()) {
-				cout << "Found " << orderfile << endl;
 				vector<string> lines;
 				string line;
 				while (getline(reader, line))
@@ -211,6 +209,9 @@ bool BashTutorial::loadTutorialsFromDirectory(const string& tutorialDirectory)
 				menu->addEntry(submenu);
 			}
 		} 
+		//order with order file
+		path p = dir / ORDER_FILE_NAME;
+		orderWithFile(menu, p.string());
 		return true;
 	} else {
 		return false;

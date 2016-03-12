@@ -173,7 +173,7 @@ bool TutorialAction::loadFromString(const string& line)
 			int startPos = line.find("pw") + strlen("pw ");
 			string messageToPrint = line.substr(startPos, line.length() - startPos);
 			action = [messageToPrint](){
-				cout << messageToPrint;
+				cout << messageToPrint << " ";
 				string line;
 				getline(cin, line);
 				return true;

@@ -60,7 +60,6 @@ string BashCommandLine::getBashInput()
 
 string BashCommandLine::getBashInputExpected(const string& expected, const string& incorrectMessage)
 {
-	cout << "getBashInputExpected 2 args" << endl;
 	string userInput;
 	userInput = this->getBashInput();
 	while (userInput != expected)
@@ -73,7 +72,6 @@ string BashCommandLine::getBashInputExpected(const string& expected, const strin
 
 string BashCommandLine::getBashInputExpected(const string& expected, const string& incorrectMessage, const string& hintMessage)
 {
-	cout << "getBashInputExpected 3 args" << endl;
 	string userInput;
 	userInput = this->getBashInput();
 	int tries = 0;
