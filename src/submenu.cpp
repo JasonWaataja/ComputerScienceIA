@@ -21,6 +21,11 @@ vector<MenuEntry*>& SubMenu::getItems()
 	return items;
 }
 
+void SubMenu::setItems(vector<MenuEntry*>& items)
+{
+	this->items = items;
+}
+
 int SubMenu::size() const
 {
 	return items.size();

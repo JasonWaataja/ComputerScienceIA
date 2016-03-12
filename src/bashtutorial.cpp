@@ -8,6 +8,7 @@
 #include <cstring>
 #include <iostream>
 #include <algorithm>
+#include <fstream>
 #include <boost/filesystem.hpp>
 
 #include "menu.h"
@@ -65,6 +66,9 @@ SubMenu* getTutorialsInDirectory(const string& tutorialDirectory, SubMenu* paren
 				//submenu->setName(p.filename().string());
 			}
 		} 
+		//order with order file
+		path p = dir / ORDER_FILE_NAME;
+		orderWithFile(menu, p.string());
 	}
 	return menu;
 }
@@ -81,6 +85,57 @@ void deleteTutorialsInMenu(SubMenu* menu)
 			}
 		}
 		delete entry;
+	}
+}
+
+bool orderWithFile(SubMenu* menu, const string& orderfile)
+{
+	cout << orderfile << endl;
+	if (menu != nullptr) {
+		path p(orderfile);
+		if (exists(p)) {
+			std::ifstream reader(p.string());
+			if (reader.is_open()) {
+				cout << "Found " << orderfile << endl;
+				vector<string> lines;
+				string line;
+				while (getline(reader, line))
+				{
+					lines.push_back(line);
+				}
+				reader.close();
+				vector<MenuEntry*> newEntries;
+				vector<MenuEntry*> entries = menu->getItems();
+				for (int i = 0; i < lines.size(); i++) {
+					string name = lines[i];
+					int j = 0;
+					while (j < entries.size()) {
+						if (entries[j]->getName() == name) {
+							newEntries.push_back(entries[j]);
+							entries.erase(entries.begin() + j);
+						} else {
+							j++;
+						}
+					}
+				}
+				while (entries.size() > 0) {
+					newEntries.push_back(entries[0]);
+					entries.erase(entries.begin());
+				}
+				menu->setItems(newEntries);
+				//for (int i = 0; i < newEntries.size(); i++) {
+					//cout << newEntries[i]->getName() << endl;
+					//entries.push_back(newEntries[i]);
+				//}
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	} else {
+		return false;
 	}
 }
 

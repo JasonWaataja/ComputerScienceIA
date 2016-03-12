@@ -16,10 +16,12 @@ class SubMenu: public MenuEntry
 
 	public:
 		SubMenu(SubMenu* parentMenu=nullptr);
+		//note, use of this function may result in not all entires being deleted properly, this is meant to use when reordering or modifying.
 		SubMenu(const string& name, const string& description, SubMenu* parentMenu=nullptr);
 
 		//returns by reference, I hope it works
 		vector<MenuEntry*>& getItems();
+		void setItems(vector<MenuEntry*>& items);
 
 		int size() const;
 		void addEntry(MenuEntry* entry);

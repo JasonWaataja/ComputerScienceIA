@@ -11,6 +11,9 @@
 //where the tutorial files are located
 #define TUTORIAL_DIRECTORY "tutorials"
 
+//the name of the file that orders them.
+#define ORDER_FILE_NAME ".tutorder"
+
 using namespace std;
 
 //true for yes, false for no
@@ -22,6 +25,9 @@ bool getYesNo();
 SubMenu* getTutorialsInDirectory(const string& tutorialDirectory, SubMenu* parentMenu=nullptr);
 //deletes recursively, deletes everything, not just turials
 void deleteTutorialsInMenu(SubMenu* menu);
+
+//sets order in menu with the given order file, returns whether or not it succeded.
+bool orderWithFile(SubMenu* menu, const string& orderfile);
 
 class BashTutorial
 {
