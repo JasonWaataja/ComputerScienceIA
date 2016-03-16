@@ -18,3 +18,23 @@ p Try entering the command "ls ~" which will tell you what the contents of your 
 gee "ls ~" "Enter \"ls ~\""
 pw This shows the content of your home directory.
 pw This is usually things like Documents and Pictures folders
+pw Next, we'll go over some options that "ls" that.
+pw Various commands have options, which are used by passing an argument to the command.
+pw They are usually done by added a space, then something like "-<character>" such as "-l" or "-a"
+pw For the ls command, two options you'll need to know are the "a" and "l" options.
+pw First is the "-a" flag.
+pw What this does is that it makes the command display hidden files.
+pw In Linux and Unix, hidden files being with a ".", such as a ".vimrc" file.
+pw This is to indicate that a file doesn't need to be viewed normally with ls so it will be out of the way.
+pw This is often done for configuration files.
+e touch .hiddenfile
+p Now, try typing in "ls -a", which will display the hidden files in the current directory.
+gee "ls -a" "Type \"ls -a\""
+pw A hidden file ".hiddenfile" was display, hopefully.
+pw Next, will be the "-l" flag, which displays more information about the file.
+pw What this means, is that it shows all of the infomation required about the given files
+p Try typing "ls -l" to use the "-l" option.
+gee "ls -l" "Type \"ls -l\""
+pw not all of the information will make sense, but most of it will later.
+pw For now, go onto the next tutorial.
+e rm .hiddenfile
