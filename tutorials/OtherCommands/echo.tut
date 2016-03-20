@@ -1,0 +1,18 @@
+echo
+Tutorial for the "echo" command.
+
+pw Sometimes, you want to see what the command line sees for some give string
+pw The "echo" command can be used for this
+pw "echo <string>" shows how the command line would expand this.
+p For example, try "echo ~" to show how bash sees "~"
+gee "echo ~" "Type \"echo ~\""
+w
+pw This should output an absolute path.
+pw Another thing this does is show environment variables.
+pw There's an environment variable called "HOME"
+pw This variable is your home directory, which is "~" or /home/<username>
+pw putting "$" in front of a variable name uses that variable's value
+p Try showing the value of HOME using "echo $HOME"
+gee "echo $HOME" "Type \"echo $HOME\""
+w
+pw You can use echo to see the value of variables or how the command line sees your input

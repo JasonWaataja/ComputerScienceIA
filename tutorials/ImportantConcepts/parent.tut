@@ -1,0 +1,29 @@
+Parent Directory
+How to access parent and current directories using ".." and "."
+
+pw Sometimes, you want to do something to your current directory's parent directory.
+pw Here's the output of "ls -a" which displays all the files in your current directory.
+e ls -a
+w
+pw As you can see, there are two entries called ".." and "."
+pw These represent the parent and current directories respectively.
+pw If you want to do something with the parent directory, you can just use ".." in a file path.
+pw for example, if you wanted to find out all of the files in the parent directory, you would use "ls .."
+pw Here's what that would output:
+e ls ..
+w
+pw Any directory has a ".." entry which represents its parent, ".." with no other context is a relative path which is that ".." of the current directory.
+pw What this means is that if you have the path to some other directory, that directory plus "/.." would represent that directory's parent.
+pw For example, "../.." would represent the parent of the parent of the current directory.
+pw Here's waht that would output:"
+e ls ../..
+w
+pw As you might expect, using ../.. enough will bring you to the root directory: "/".
+
+
+w
+
+
+pw In addition to "..", "." just represents the current directory.
+pw "./<some file>" is the same as using just "<some file>" because it recognizes it as a relative path.
+pw There are some uses for this, as we'll see later.

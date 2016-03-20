@@ -1,0 +1,21 @@
+rm
+Tutorial for the "rm" command
+
+pw To delete files and also directories, the "rm" command is used.
+pw This is short for "remove"
+pw To do this, the command is "rm <file>"
+pw Here's what's in the current directory.
+e touch testfile
+e ls
+w
+p Now, try deleting the file "testfile"
+gee "rm testfile" "remove testfile" "Type \"rm testfile\""
+w
+pw "rm" can also be used to delete whole directories and their contents.
+pw To do this, like the cp command, use the -r flag.
+e mkdir testdirectory
+e ls
+w
+p Try deleting testdirectory using the rm -r command
+gee "rm -r testdirectory" "remove testdirectory" "Type \"rm -r testdirectory\""
+w

@@ -1,0 +1,14 @@
+touch
+Tutorial for touch command.
+
+pw Sometimes, you want to create a file.
+pw To do this, use the "touch" command.
+pw This command does other things as well, but if a file doesn't exist, it creates it.
+e ls
+w
+p Try creating a file called "testfile" using "touch <filename>"
+gee "touch testfile" "try creating \"testfile\"" "Type \"touch testfile\""
+e ls
+w
+pw Now there should be a file called "testfile"
+e rm testfile

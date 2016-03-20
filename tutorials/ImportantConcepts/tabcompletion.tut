@@ -1,0 +1,47 @@
+Tab Completion
+The tutorial for how to use tab completion in bash
+
+One of the most usefule and important things you'll need to know is tab completion.
+pw What this is is the ability to have bash complete the file name for you if it can find out what you're trying to type.
+pw This is done by pressing "tab" after typing the beginning of a file or directory name.
+pw If there's a file in the current directory, or the directory that your path is currently at that it recognizes, then it will complete it for you.
+e mkdir testdirectory
+e ls
+w
+pw "There's a directory called "testdirectory"
+pw See what's inside it using "ls testdirectory"
+pw However, only type "ls testd", then press tab.
+pw If you press tab after testd, then it should complete it as "testdirectory"
+gee "ls testdirectory/" "use tab completion to get \"ls testdirectory/\"" "If all else fails, just type \"ls testdirectory/\""
+w
+pw What if there are more than one thing the file could be?
+e touch testfile
+e ls
+w
+pw Notice that now there's a file called testfile
+pw Both "testdirectory" and "testfile" begin with "test"
+pw The first thing to notice is that if you start with "te", then it should complete to "test"
+p Try typing "ls te" then using tab completion to get to "ls test"
+ge "ls test" "Try getting to \"ls test\" "If all else fails, just type in \"ls test\""
+w
+
+
+pw Once you type more in that will let it determine which file you're trying to access, tab completion will fully complete the file.
+pw For example, try typing in "ls te", then pressing tab to get to "ls test", then typing "d" to get you to "ls testd", then pressing tab again which will hopefully bring you to "ls testdirectory"
+ge "ls testdirectory" "Type \"ls tedstdirectory\""
+w
+
+
+pw Now, if you press tab twice again after getting to "ls test", it will display the possibilities
+p Try typing "ls test", then pressing tab until it displays the possibilities, then typing in "d" and a tab to get testdirectory
+ge 
+w
+pw If you type the name of a directory, then a slash, then the name of a file inside that directory, tab completion still works.
+pw For example, suppose there is a file in testdirectory called testfile.
+pw You can you tab completion to get testdirectory/, then you can type "test", then it should autocomplete to "testdirectory/testfile"
+p Try using the above technique to type "rm testdirectory/testfile"
+gee "rm testdirectory/testfile" "Type \"rm testdirectory/testfile\""
+w
+pw Once you learn how to use tab completion effectively, using a command line will become much faster and easier.
+
+rm -rf testdirectory testfile

@@ -1,0 +1,20 @@
+Executing Files
+The tutorial about how to execute files
+
+pw If you've used Windows, you probably know that double clicking on an exe file executes it.
+pw In Linux, you can execute programs from the command line.
+pw An executable file usually doesn't have a specific extension.
+pw They're usually just extensionless files.
+e echo -e "#!/bin/bash\necho \"Hello World\"" > testexecutable
+e chmod +x testexecutable
+e ls
+w
+pw There's an executable called testexecutable.
+pw To run an executable, enter the full path of the executable, or start the path with "." which appends what is necessary to make it a full path.
+pw To do this in the current directory, type "./testexecutable"
+gee "./testexecutable" "Type \"testexecutable\""
+w
+pw That's how to execute files.
+pw Note, because of file permissions, some executables can't be executed.
+pw To make sure a file can be executed, use "chmod +x <filename>"
+pw Hopefully, there won't be much need for that until one has a necessary understanding of file permissions

@@ -1,0 +1,10 @@
+vi
+Tutorial to explain vi
+
+pw One of the thing's you'll do from a command line a lot is edit text files.
+pw There are many ways to do this from a command line, but one of the most popular is through a program called "vi"
+pw To do this, just use "vi <file name>"
+pw However, vi is a complex program, and learning it takes a long time.
+pw It is recommended that the user searches for a guide on how to use vi or vim, and spend time learning how to use it.
+pw If that seems too daunting, then try using the command "nano <file name>"
+pw This is also a text editor, but is much easier to use, albeit slower.

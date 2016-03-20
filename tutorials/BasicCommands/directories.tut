@@ -1,0 +1,19 @@
+Directories
+The mkdir and rmdir commands
+
+pw The commands to create and remove directories are "mkdir" and "rmdir"
+pw "mkdir" is pretty simple. It's just "mkdir <directory name>"
+p Try making a directory called "testdirectory"
+gee "mkdir testdirectory" "make a directory called \"testdirectory\"" "Type \"mkdir testdirectory\""
+w
+pw Here's what's in your current directory now.
+e ls
+w
+pw Now, we can remove the directory with "rmdir"
+p Try that.
+gee "rmdir testdirectory" "remove testdirectory" "Type \"rmdir testdirectory\""
+w
+pw One thing that is crucial to know is that "rmdir" only works with empty directories.
+pw You might be wondering why it exists then.
+pw You should use rmdir when you need to delete an directory, or want to make sure that you've cleared everything in it before deleting it.
+pw If you want to delete a directory and everything inside of it, you need to use the rm -r command, which is a different tutorial.

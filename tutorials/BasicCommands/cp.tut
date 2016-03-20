@@ -1,4 +1,45 @@
 cp
 Tutorial for the "cp" command
 
+pw A very important command is the "cp" command.
+pw This is short for "copy" and is used to copy files.
+pw This is like control-V in Windows.
+pw To do this, you type "cp <file to copy> <destination>"
+pw One important distinction is that if destination is a directory, then it will put it in the directory
+pw However, it if is just a normal file, then that file will be overriden.
 
+
+
+
+e mkdir testdirectory
+e touch testfile
+p Now try using the command, first type "ls" to see the contents of the current directory
+gee "ls" "Type \"ls\""
+pw Now try copying "testfile" into "testdirectory"
+gee "cp testfile testdirectory" "copy \"testfile\" into \"testdirectory\"" "Type \"cp testfile testdirectory\""
+p Now, let's see what's in the directory
+btcd testdirectory
+gee "ls" "Type \"ls\""
+pw As you can see, it copied the file in here.
+pw Now, we'll try making a copy of the file with a different name.
+p Instead of copying the file into a directory, try copying it into the new file "testfilecopy"
+gee "cp testfile testfilecopy" "Copy testfile into testfilecopy" "Type \"cp testfile testfilecopy\""
+
+
+
+pw One important thing to know is that to copy directories, the -r option must be used.
+pw The -r flag stands for "recursive" and copies a directory and everything inside of it.
+pw To do this, it's "cp -r <directory> <copy location>"
+p Navigate one directory up using "cd .."
+gee "cd .." "Type \"cd ..\""
+btcd ..
+e mkdir testdirectorycopy
+pw Here's what's in the directory
+e ls
+p Now, recursively copy testdirectory into testdirectorycopy
+gee "cp -r testdirectory testdirectorycopy" "Copy testdirectory into testdirectorycopy" "Type \"cp -r testdirectory testdirectorycopy\""
+pw That's one of the most important things to know about the cp command
+
+
+
+e rm -rf testdirectory testdirectorycopy testfile

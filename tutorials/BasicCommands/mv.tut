@@ -1,0 +1,25 @@
+mv
+Tutorial for the "mv" command.
+
+pw The "mv" command has similar syntax to the "cp" command, except that the -r flag is not needed.
+pw In fact, think of the mv command like the "cp" command that deletes the original.
+pw Furthermore, the syntax for the "mv" command is "mv <file to move> <destination>"
+pw Note, like the cp command, if the destination is a directory, it moves it into the directory, but if not, then the file with that name is set.
+pw This means that the mv command can be used to rename files.
+pw This is because if destination is a filename, a new file will be created with that name, the file will be copied there, then the original deleted.
+pw First, let's try moving a file into a directory
+
+e mkdir testdirectory
+e touch testfile
+pw Here's what's in the current directory
+e ls
+w
+p Now, move testfile into testdirectory
+gee "cp testfile testdirectory" "move testfile into testdirectory" "Type \"cp testfile testdirectory\""
+w
+pw Now, we want to rename "testdirectoy" into "testfolder"
+p Try doing this by using the "mv" command
+gee "mv testdirectory testfolder" "use the mv command to rename testdirectory into testfolder" "Type \"mv testdirectory testfolder\""
+w
+pw The "mv" command is very similar to draggin files in windows, it will move things into other folders.
+pw However, also remember that this is the command that you should use to rename files, like slowly double clicking on a file in Windows Explorer

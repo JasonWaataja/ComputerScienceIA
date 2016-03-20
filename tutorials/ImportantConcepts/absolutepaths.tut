@@ -1,0 +1,35 @@
+Relative vs Absolute Paths
+A rundown of the difference and important of relative and absolute paths
+
+pw One of the important concepts that has to do with a command line is relative vs absolute paths.
+pw A "path" is a string that represents a way to find a file.
+pw An "absolte path" is a path that starts with "/", and goes through all the directories and subdirectories to represent your file.
+pw In a Linux command line, the highest directory you can go to is "/".
+pw This is the directory that all files are located in in some subdirectory
+pw An example of an absolute path is usually the output of the "pwd" command.
+e pwd
+w
+pw If you use an absolute path, there is no ambiguity as to exactly what file you're talking about.
+pw Anywhere and for any of the commands in the previous tutorials, an absolute path could be used as well.
+pw The advantate of this is that it knows exactly what the file is and where to find it.
+pw The disadvantage is that it's long to type in and inconvenient, as well as a few things we'll get to later.
+pw Enter the "relative path"
+pw If an operation expects a path, if it doesn't start with a "/", then it's assumed to be relative.
+pw This means that it tries to find a file IN THE CURRENT DIRECTORY with that name.
+pw This is what we've been using up until this point.
+pw Relative paths are all about context and flexibility.
+pw You should use these if you're navigating into a directory and need to use a bunch of files there.
+pw In addition to that, they're just easier to use most of the time.
+w
+
+pw If you used a command on a file called "testfile", then it would only make work if there was a file called "testfile" in your current directoy.
+pw If you want to perform that operation from somewhere other than inside of that directory, you could use its absolute path.
+pw One important thing to note, is that since terminals usually start in the home directory, if you're operation on a file or directory that is in some subdirectory of your home directory, then you don't have to prepend /home/<username>, you can just type the name of the path relative your home directory, because that's your current directory.
+pw For example, if you wanted to access the file /home/user/Documents/testfile, and you're in your home directory, then you could just use "Documents/testfile".
+pw This is an example of using relative paths because instead of starting with /home/user, it started with the "Documents" directory which it knew because "Documents" would be a folder in the current directory.
+pw If one tried to do that from somewhere other than the home directoy, though, it wouldn't work because it wouldn't be able to recognize it as a relative path.
+pw For example, if the output of "pwd" were "/home/user/Videos", then using the relative path "Documents/testfile" wouldn't work because "Documents" isn't in the "Videos" folder.
+pw Alternatives would be to use the absolute path or some other method.
+pw These include "/home/user/Documents/testfile", "~/Documents/testfile", "../Documents/testfile"
+pw The second of the above works because in a command line, "~" resolves to the home directory which means "~/Documents/testfile" is the same as "/home/user/Documents/testfile", which it can find because it's an absolute path.
+pw The third, "../Documents/testfile" will be explained later, but are technically relative paths.

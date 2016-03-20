@@ -1,0 +1,12 @@
+Root Permissions
+Tutorial for sudo and su commands
+
+pw There are some commands that could potentially harm your computer.
+pw This means that only an administrator, or in Linux's case, a "root user" can use it.
+pw To do this, just type the command with "sudo" in from of it.
+pw This is usually things such as updating your computer, or restarting it.
+pw For example, do install vim in Debian or Ubuntu, you would have to use "apt-get install vim"
+pw However, because this changes your computer in an important way, only someone with root permission can do it.
+pw That means you'd have to type "sudo apt-get install vim"
+pw If you want to execute a bunch of sudo commands in a row, you can type "su"
+pw This temporarrily logs you in as the root user, so you can execute as many dangerous commands as you want.
