@@ -1,3 +1,20 @@
+/*Copyright 2016 Jason Waataja
+
+  This file is part of BashTutorial.
+
+  BashTutorial is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  BashTutorial is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with BashTutorial.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "btfunctions.h"
 
 #include <iostream>
@@ -29,6 +46,7 @@ bool blankFunction()
 function<bool()> getBtFunction(const string& name, int argc, char** argv)
 {
 	function<bool()> btFunction;
+	//checks if it's btcd
 	if (name == "btcd") {
 		if (argc >= 1) {
 			//note, I try to have it copy it into a new string so the argument is still around
@@ -39,6 +57,7 @@ function<bool()> getBtFunction(const string& name, int argc, char** argv)
 			btFunction = blankFunction;
 		}
 	} else {
+		//return blank function
 		btFunction = blankFunction;
 	}
 	return btFunction;

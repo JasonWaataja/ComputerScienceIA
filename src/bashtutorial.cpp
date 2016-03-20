@@ -1,3 +1,20 @@
+/*Copyright 2016 Jason Waataja
+
+  This file is part of BashTutorial.
+
+  BashTutorial is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  BashTutorial is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with BashTutorial.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "bashtutorial.h"
 
 //#include <iostream>
@@ -19,9 +36,11 @@ using namespace boost::filesystem;
 
 bool getYesNo(const string& prompt)
 {
+	//print out the prompt
 	cout << prompt;
 	string line;
 	getline(cin, line);
+	//if Y or y, return true, N or n return false, asks again if neither.
 	if (line.length() > 0) {
 		char c = line[0];
 		if (c == 'Y' || c == 'y')
@@ -39,19 +58,25 @@ bool getYesNo(const string& prompt)
 
 bool getYesNo()
 {
+	//uses empty prompt I guess.
 	string prompt;
 	return getYesNo(prompt);
 }
 
 SubMenu* getTutorialsInDirectory(const string& tutorialDirectory, SubMenu* parentMenu)
 {
+	//the current directory.
 	path dir(tutorialDirectory);
+	//menu to return.
 	SubMenu* menu = new SubMenu(dir.filename().string(), "sub directory", parentMenu);
+	//if it's a directory, load the stuff in the directory.
 	if (is_directory(dir)) {
+		//iterate over every entry in the directory.
 		directory_iterator i(dir);
 		directory_iterator end;
 		for (; i != end; i++) {
 			path p = i->path();
+			//if it's not a directoy, see if it's a tutorial and add it, otherwise, add a new entry that is a submenu and load from that.
 			if (is_regular_file(p)) {
 				Tutorial* tut = new Tutorial();
 				bool success = tut->loadFromFile(p.string());
@@ -75,15 +100,18 @@ SubMenu* getTutorialsInDirectory(const string& tutorialDirectory, SubMenu* paren
 
 void deleteTutorialsInMenu(SubMenu* menu)
 {
+	//delete everything in each entry.
 	for (int i = 0; i < menu->size(); i++) {
 		MenuEntry* entry;
 		entry = menu->getEntry(i);
+		//if it's a submenu, recursively delete everything in the submenu.
 		if (entry->isMenuEntry()) {
 			SubMenu* asSubMenu = dynamic_cast<SubMenu*>(entry);
 			if (asSubMenu) {
 				deleteTutorialsInMenu(asSubMenu);
 			}
 		}
+		//now delete the entry itself.
 		delete entry;
 	}
 }
@@ -91,9 +119,11 @@ void deleteTutorialsInMenu(SubMenu* menu)
 bool orderWithFile(SubMenu* menu, const string& orderfile)
 {
 	if (menu != nullptr) {
+		//the order file to find.
 		path p(orderfile);
 		if (exists(p)) {
 			std::ifstream reader(p.string());
+			//read the order file and order it.
 			if (reader.is_open()) {
 				vector<string> lines;
 				string line;
@@ -104,9 +134,11 @@ bool orderWithFile(SubMenu* menu, const string& orderfile)
 				reader.close();
 				vector<MenuEntry*> newEntries;
 				vector<MenuEntry*> entries = menu->getItems();
+				//for each line, put the entry named that nex.
 				for (int i = 0; i < lines.size(); i++) {
 					string name = lines[i];
 					int j = 0;
+					//if it finds name at index, put it in new entries.
 					while (j < entries.size()) {
 						if (entries[j]->getName() == name) {
 							newEntries.push_back(entries[j]);
@@ -116,10 +148,12 @@ bool orderWithFile(SubMenu* menu, const string& orderfile)
 						}
 					}
 				}
+				//copy over all items that weren't found in the order file.
 				while (entries.size() > 0) {
 					newEntries.push_back(entries[0]);
 					entries.erase(entries.begin());
 				}
+				//set menu to the new list we made.
 				menu->setItems(newEntries);
 				//for (int i = 0; i < newEntries.size(); i++) {
 					//cout << newEntries[i]->getName() << endl;
@@ -249,7 +283,9 @@ bool BashTutorial::loadTutorialsFromDirectory(const string& tutorialDirectory)
 
 void BashTutorial::startBashTutorial()
 {
+	//null parent menu, there isn't one.
 	SubMenu* parentMenu;
+	//get selected tutorial.
 	Tutorial* selectedTutorial = selectTutorialMenu(parentMenu);
 	if (selectedTutorial != nullptr) {
 		//selectedTutorial->execute();
@@ -259,6 +295,7 @@ void BashTutorial::startBashTutorial()
 
 bool BashTutorial::executeTutorialFromEntry(MenuEntry* startEntry, SubMenu* parent)
 {
+	//if there's no start entry, go up to parent directory.
 	if (startEntry == nullptr) {
 		if (parent) {
 			if (parent->size() > 0) {
@@ -266,8 +303,10 @@ bool BashTutorial::executeTutorialFromEntry(MenuEntry* startEntry, SubMenu* pare
 			}
 		}
 	}
+	//whether or not we went into a directoy and we have to print "done" at the end.
 	bool wentIntoDirectory = false;
 	if (startEntry != nullptr) {
+		//if it's a normal tutorial entry, execute it.
 		if (startEntry->isItemEntry()) {
 			Tutorial* asTutorial = dynamic_cast<Tutorial*>(startEntry);
 			if (asTutorial) {
@@ -277,6 +316,7 @@ bool BashTutorial::executeTutorialFromEntry(MenuEntry* startEntry, SubMenu* pare
 					asTutorial->execute();
 				}
 			}
+		//if it's not on, presumably a submenu, ask if they want to go into it and execute from first entry.
 		} else {
 			SubMenu* asSubMenu = dynamic_cast<SubMenu*>(startEntry);
 			if (asSubMenu) {
@@ -294,6 +334,7 @@ bool BashTutorial::executeTutorialFromEntry(MenuEntry* startEntry, SubMenu* pare
 			}
 		}
 	}
+	//now, iterate to the next entry and start from there, this is recursion.
 	if ((parent != nullptr) && !wentIntoDirectory) {
 		vector<MenuEntry*> entries = parent->getItems();
 		auto i = std::find(entries.begin(), entries.end(), startEntry);
@@ -301,10 +342,12 @@ bool BashTutorial::executeTutorialFromEntry(MenuEntry* startEntry, SubMenu* pare
 		if (i != entries.end()) {
 			//get next entry
 			i++;
+			//if it's the last entry, execute from next entry, else, do a complicated thing to go up to parent directory.
 			if (i != entries.end()) {
 				executeTutorialFromEntry(*i, parent);
 			} else {
 				cout << "No more entries in " << parent->getName() << endl;
+				//if the parent menu is null, that means we've gone through everything and need to end the program.
 				if (parent->getParentMenu()) {
 					cout << "Would you like to go up to " << parent->getParentMenu()->getName() << "? [y/n] " << endl;
 					bool answer = getYesNo();

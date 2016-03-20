@@ -1,3 +1,20 @@
+/*Copyright 2016 Jason Waataja
+
+  This file is part of BashTutorial.
+
+  BashTutorial is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  BashTutorial is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with BashTutorial.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "tutorial.h"
 
 #include <fstream>
@@ -26,13 +43,14 @@ Tutorial::~Tutorial()
 
 bool Tutorial::loadFromFile(const string& path)
 {
+	//if it's a .tut file, load it.
 	if (fileHasExtension(path, ".tut")) {
 
 		ifstream reader;
 		reader.open(path);
 		if (reader.is_open()) {
 			string line;
-			//readds the first two lines and sets them to name and description, fails if can't be read.
+			//reads the first two lines and sets them to name and description, fails if can't be read.
 			if (getline(reader, line)) {
 				this->setName(line);
 				if (getline(reader, line)) {
@@ -73,6 +91,7 @@ void Tutorial::setCommandName(const string& commandName)
 }
 
 bool Tutorial::execute() {
+	//for each ection, execute it.
 	for (int i = 0; i < actionList.size(); i++) {
 		//cout << i << endl;
 		bool success;

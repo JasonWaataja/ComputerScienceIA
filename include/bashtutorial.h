@@ -1,3 +1,20 @@
+/*Copyright 2016 Jason Waataja
+
+  This file is part of BashTutorial.
+
+  BashTutorial is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  BashTutorial is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with BashTutorial.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #ifndef BASHTUTORIAL_H
 #define BASHTUTORIAL_H
 
@@ -16,8 +33,8 @@
 
 using namespace std;
 
-//true for yes, false for no
-//note, any input that begins with y or n is a yes or no
+/*true for yes, false for no
+note, any input that begins with y or n is a yes or no*/
 bool getYesNo(const string& prompt);
 bool getYesNo();
 
@@ -29,6 +46,11 @@ void deleteTutorialsInMenu(SubMenu* menu);
 //sets order in menu with the given order file, returns whether or not it succeded.
 bool orderWithFile(SubMenu* menu, const string& orderfile);
 
+/* main class for the BashTutorial program
+   Contains the information for the tutorial, as well as the methods necessary for starting and managing it.
+   startBashTutorial is called in BashTutorial's main function. */
+
+
 class BashTutorial
 {
 	private:
@@ -38,6 +60,7 @@ class BashTutorial
 
 	public:
 		BashTutorial();
+		//constructor accepting the root directory for all of the tutorial file, loads them.
 		BashTutorial(const string& tutorialDirectory);
 		~BashTutorial();
 

@@ -1,3 +1,20 @@
+/*Copyright 2016 Jason Waataja
+
+  This file is part of BashTutorial.
+
+  BashTutorial is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  BashTutorial is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with BashTutorial.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "tutorialaction.h"
 
 #include <iostream>
@@ -13,6 +30,8 @@ using namespace std;
 
 bool executeWithBash(const string& command)
 {
+	/*call "system", this is really ugly but including the bash source code was too hard.
+	In the future, will probably have to call system("bash <something here") or something on windows.*/
 	system(command.c_str());
 	return true;
 }
@@ -20,9 +39,11 @@ bool executeWithBash(const string& command)
 bool isEscaped(const string& s, int i)
 {
 	bool escaped = false;
+	//if it's not the second character or before the end character, then it could be escaped
 	if (i >= 0 && i < s.length()) {
 		if (i > 0) {
 			char previous = s[i-1];
+			//if the previous character is a "\", then it's escaped if and only if that character is not escaped
 			if (previous != '\\') {
 				return false;
 			} else {
@@ -59,11 +80,14 @@ bool TutorialAction::execute()
 int findQuoted(const string& parameter, string& quote, int start)
 {
 	int q1 = parameter.find('"', start);
+	//if no quote, then return -1
 	if (q1 == string::npos)
 		return -1;
+	//start searching after that
 	start = q1+1;
 	int q2;
 	bool found = false;
+	//while it hasn't been found, search for "\""
 	while (!found) {
 		q2 = parameter.find('"', start);
 		if (q2 == string::npos)
@@ -80,6 +104,7 @@ int findQuoted(const string& parameter, string& quote, int start)
 	//cout << quote << endl;
 	//change to escaped characters.
 	int i = 0;
+	//replace all of the escaped characters
 	while (i < quote.length()) {
 		if (isEscaped(quote, i)) {
 			char c = quote[i];

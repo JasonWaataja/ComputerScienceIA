@@ -1,3 +1,20 @@
+/*Copyright 2016 Jason Waataja
+
+  This file is part of BashTutorial.
+
+  BashTutorial is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  BashTutorial is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with BashTutorial.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "menu.h"
 
 #include <iostream>
@@ -12,7 +29,9 @@ Menu::Menu(const string& name) : SubMenu(name, "Menu - " + name)
 
 void Menu::printMenuSelection(SubMenu* submenu)
 {
+	//print out menu name at top.
 	cout << submenu->getName() << endl;
+	//loops over and prints the line for each entry.
 	for (int i = 0; i < submenu->size(); i++)
 	{
 		MenuEntry* currentEntry = submenu->getEntry(i);
@@ -29,6 +48,7 @@ void Menu::printMenuSelection(SubMenu* submenu)
 
 MenuEntry* Menu::getUserSelection(SubMenu* submenu, SubMenu*& parentMenuToSet)
 {
+	//first, print out the selection so the user can see the options.
 	printMenuSelection(submenu);
 	parentMenuToSet = submenu;
 
