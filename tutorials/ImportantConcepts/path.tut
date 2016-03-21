@@ -1,0 +1,18 @@
+Path
+Tutorial explaining the concept of the path variable
+
+pw Now that you understand environment variables, it's important to explain the concept of a path.
+pw As you know, to execute an executable file, you either need to use ./, or enter the full name of the executable.
+pw However, certain commands, like ls, cp, etc., are also executable files in the directory /bin.
+pw This begs the question of why we can use these executable files from outside of the directory where they abide.
+pw The answer is that the directory /bin is in the path.
+pw The PATH variable is a variable that is a list of all of the directories that contain executable files we want to use without using their full path.
+pw If a directory is in the PATH variable, then all executable files in that directory will be immediately accessable. The system will know what to run.
+pw Now, how do you add a directory to the path?
+pw First we have to see the value of PATH now and how it is formatted
+p echo the value of PATH.
+gee "echo $PATH" "echo the value of PATH" "Type \"echo $PATH\""
+w
+pw This is what it looks like: full directory paths seperated by ":".
+pw To add something to that, use the command "PATH='$PATH:/path/to/new/directory'"
+pw This will come in handy when using custom scripts and programs.

@@ -1,0 +1,36 @@
+Environment Variables
+Tutorial explaining environment variables
+
+pw One thing that Unix, Linux, and even Windows has are environment variables.
+pw These are named variables that represent a string, most of the time.
+pw These are used by applications and the system.
+pw For exammple, the HOME environment variable is the path to the current user's home directory.
+pw The first thing you'll need to know is how to find the value of a variable
+pw To do this, use the echo command.
+pw Note that environment variables, by convention, are in all caps.
+pw Another thing to know is that when accessing them, use the "$" symbol in front.
+pw So to use the value of the HOME variable, use $HOME.
+pw To use the echo command to see the value of a variable, use "echo $<name of variable"
+p Try using this to find the value of the home directory.
+gee "echo $HOME" "Use echo to find the value of your home directory" "Type \"echo $HOME\""
+w
+pw This should show a path that you can use in your commands.
+p For example, use "ls" and the HOME variable to find out what's in your home directory.
+gee "ls $HOME" "Use ls to list the contents of $HOME" "Type \"ls $HOME\""
+w
+pw To set a variable, just enter "<variable name>=<variable value>"
+p Try setting a variable named TESTVARIABLE to "testvalue"
+gee "TESTVARIABLE=testvalue" "Set TESTVARIABLE to testvalue" "Type \"TESTVARIABLE=testvalue\""
+w
+pw Now try showing the value of TESTVARIABLE
+gee "echo $TESTVARIABLE" "Show the value of TESTVARIABLE" "Type \"echo $TESTVARIABLE\""
+w
+pw This is a condition, however, which that the variable isn't preserved once you close your terminal
+pw To set a variable globally, use "export <variable name>=variablevalue"
+p Try setting TESTVARIABLE to "testvalue" globally
+gee "export TESTVARIABLE=testvalue" "set TESTVARIABLE to testvalue globally" "Type \"export TESTVARIABLE=testvalue\""
+w
+pw To make sure this preserves through reboots, you should add these lines to your .bashrc or .bash_profile in your home directory.
+pw ~/.bashrc is run whenever you open a terminal, ~/.bash_profile runs whenever you login.
+pw Hopefully, your .bash_profile contains a command to run everything in .bashrc.
+pw So, to make sure a variable is preserved through reboot, add a line to your .bashrc that says "export <variable name>=<variablevalue>"

@@ -1,0 +1,18 @@
+Piping
+Tutorial on how piping works.
+
+pw Something important that one must do is pass the output of one command to the input of the next.
+pw This is done through something called a "pipe"
+pw This is done with "<command a> | <command b>"
+pw What this does is take the output of command and and feed it to command b.
+pw For example, grep is a command that searches for lines containing a string.
+pw grep can take input through a pipe, so let's try feeding something to it.
+e touch testfile
+e ls
+w
+pw As you can see, there is a file called testfile in the current directory.
+p Try piping the output of ls into "grep test"
+gee "ls | grep test" "pipe ls into \"grep test\"" "Type \"ls | grep test\""
+w
+pw This should have shown testfile at least, and possibly more if there was another file containing test.
+pw There are many creative ways to use piping which we'll see later.

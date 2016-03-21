@@ -1,0 +1,31 @@
+Process Management
+Tutorial for how to do process management
+
+pw If you've used Windows, you probably know about task managers.
+pw Linux has these, too, but you don't have to use them.
+pw You can use them from the command line.
+pw The "ps aux" command displays the currently running processes.
+p Try using that command now.
+gee "ps aux" "Type in \"ps aux\""
+w
+pw This displays all of the currently running processes, but it's not really readable.
+pw Notice that each process has an associated number on the left.
+pw This is its unique id, which you can kill off.
+pw To kill a process, you have to use the kill command.
+pw This sends a signal to the process that tells it to end.
+pw The syntax is "kill <process id>"
+e "sleep 300 &"
+pw Hopefully you just saw the id of a process.
+pw That was a process that sleeps for 300 seconds and then exists.
+pw After 5 minutes, it will dissapear on its own.
+pw Now, we'll find out how to kill it.
+pw To do this, pipe the output of "ps aux" through "grep sleep"
+p This will search the output of "ps aux" for lines with "sleep"
+gee "ps aux | grep sleep" "Pipe \"ps aux\" through \"grep slee\"" "Type \"ps aux | grep sleep\""
+w
+pw Now, find the id that was above.
+pw This is the process that was started earlier
+pw Now, to kill this process, use would use "kill <process id>" for the process you just found.
+pw If that doesn't work, you would use "kill -9 <process id>"
+pw This sends a signla to terminate the process, so there wouldn't be any delay.
+pw Use this sparingly, though, because it terminates it immediately without giving the process a chance to clean up its resources.

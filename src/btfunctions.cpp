@@ -40,7 +40,7 @@ bool btcd(const string& newDirectory)
 
 bool blankFunction()
 {
-	return false;
+	return true;
 }
 
 function<bool()> getBtFunction(const string& name, int argc, char** argv)
