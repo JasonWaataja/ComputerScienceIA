@@ -14,16 +14,16 @@ pw This is its unique id, which you can kill off.
 pw To kill a process, you have to use the kill command.
 pw This sends a signal to the process that tells it to end.
 pw The syntax is "kill <process id>"
-e "sleep 300 &"
-pw Hopefully you just saw the id of a process.
+e sleep 300 &
+pw A process was just started.
 pw That was a process that sleeps for 300 seconds and then exists.
-pw After 5 minutes, it will dissapear on its own.
+pw After 5 minutes, it will disapear on its own.
 pw Now, we'll find out how to kill it.
 pw To do this, pipe the output of "ps aux" through "grep sleep"
 p This will search the output of "ps aux" for lines with "sleep"
 gee "ps aux | grep sleep" "Pipe \"ps aux\" through \"grep slee\"" "Type \"ps aux | grep sleep\""
 w
-pw Now, find the id that was above.
+pw Now, look for a process with "sleep" in the name.
 pw This is the process that was started earlier
 pw Now, to kill this process, use would use "kill <process id>" for the process you just found.
 pw If that doesn't work, you would use "kill -9 <process id>"
