@@ -28,6 +28,8 @@ This should create an executable called runbashtutorial. To run it, type `./runb
 
 ## Usage
 
+### Running the Tutorials
+
 Running the program, you should be greeted with a menu. You can navigate it by typing the number of the item you want to select. It is recommended if the user has no experience with the command line that they start the first tutorial firse. If the user wishes to be reminded of a specific tutorial, they can navigate into one of the directories and start it. Finishing any tutorial automatically prompts the user as to if they would like to do the next one. All of the tutorials can be done in sequence this way.
 
 ### Writing Tutorials
