@@ -1,4 +1,6 @@
-# ComputerScienceIA
+# Bash Tutorial
+
+A program for Linux/Unix which teaches the user how to use a command line interface, specifically BASH, or the Bourne Again SHell. By the end of these tutorials, the user should have a basic understanding of the commands for operating a Unix-like system. The program also supports writing your own tutorials which can be for any command.
 
 ## Installation
 
