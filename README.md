@@ -4,7 +4,7 @@ A program for Linux/Unix which teaches the user how to use a command line interf
 
 ## Installation
 
-BashTutorial is installed and run from the command line. Start by opening a terminal. Try searching for "terminal" in your OS or starting your favorite tournament emulator.
+BashTutorial is installed and run from the command line. Start by opening a terminal. Try searching for "terminal" in your OS or starting your favorite terminal emulator.
 
 You might not have git installed, so do that. On Arch Linux, run `sudo pacman -S git` and on Ubuntu, run `sudo apt-get install git`. Then, clone this repository. If you don't know how to do this, follow these instructions. Type `mkdir git`, `cd git`, `git clone https://github.com/JasonWaataja/ComputerScienceIA.git`. Then, navigate into the directory with `cd ComputerScienceIA`.
 
