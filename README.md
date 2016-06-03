@@ -1,8 +1,12 @@
-# Bash Tutorial
+# BashTutorial
 
 A program for Linux/Unix which teaches the user how to use a command line interface, specifically BASH, or the Bourne Again SHell. By the end of these tutorials, the user should have a basic understanding of the commands for operating a Unix-like system. The program also supports writing your own tutorials which can be for any command.
 
 ## Installation
+
+BashTutorial is installed and run from the command line. Start by opening a terminal. Try searching for "terminal" in your OS or starting your favorite tournament emulator.
+
+You might not have git installed, so do that. On Arch Linux, run `sudo pacman -S git` and on Ubuntu, run `sudo apt-get install git`. Then, clone this repository. If you don't know how to do this, follow these instructions. Type `mkdir git`, `cd git`, `git clone https://github.com/JasonWaataja/ComputerScienceIA.git`. Then, navigate into the directory with `cd ComputerScienceIA`.
 
 The dependencies are Boost, GNU Readline and CMake.
 
@@ -34,10 +38,12 @@ The first line of the tutorial file is the name of the tutorial and the second l
 
 The most commands are "p", "w", and "pw" which print the rest of the line, wait until the user presses enter, and both of those respectively.
 
-"g" gets the use input. "ge" gets user input with an expected value. The first argument is the expected in quotes. The second is the message if the user gives the wrong input. This is also quoted. The optional last argument is the hint to be printed if the user gets it wrong too many times.
+"g" gets the use input. "ge" gets user input with an expected value. The first argument is the expected input in quotes. The second is the message if the user gives the wrong input. This is also quoted. The optional last argument is the hint to be printed if the user gets it wrong too many times.
 
 "gee" will be the most common, though, and is the same as "ge" with the exception that it also executes the command afterwards. This is useful for showing the output of a command.
 
 There are also "bt" functins which manipulate the tutorial program itself. For now, the only one is "btcd" which allows you to change directories as if you're using "cd". This is useful for making sure commands dependent on the current directory work correctly as even it you call a cd command with "gee" which doesn't change the current directory for the program.
+
+To run an arbitrary command, use "e" which executes the command contained in the rest of the line.
 
 If you want to make sure that the tutorials are ordered correctly in the menus, every directory may contain a ".tutorder" file which is read and used to order the items in the menu. The tutorials and directories are ordered according to the order their names appear in the file on individual lines. You can also include directory names.
